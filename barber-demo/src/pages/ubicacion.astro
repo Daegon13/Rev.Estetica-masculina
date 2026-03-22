@@ -8,20 +8,39 @@ const description = `Dirección, horarios y cómo llegar. ${barber.ciudad}.`;
 
 <BaseLayout title={title} description={description}>
   <section class="py-10">
-    <h1 class="text-2xl font-semibold text-zinc-50">Ubicación</h1>
+    <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div>
+        <h1 class="text-2xl font-semibold text-zinc-50">Ubicación</h1>
+        <p class="mt-2 max-w-2xl text-sm text-zinc-400">Información lista para deploy con placeholders configurables para dirección, horarios y contacto comercial.</p>
+      </div>
+    </div>
 
-    <div class="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-soft">
+    <div class="mt-6 overflow-hidden rounded-2xl border border-stone-200/10 bg-white/5 shadow-soft">
       <img
         src={barber.media.location}
-        alt="Fachada del local"
+        alt="Fachada del estudio"
         class="h-[260px] w-full object-cover md:h-[360px]"
         loading="lazy"
         decoding="async"
       />
     </div>
 
-    <!-- tu contenido existente: horarios + mapa placeholder + cómo llegar -->
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      <div class="rounded-2xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-5">
+        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Dirección</div>
+        <div class="mt-2 text-base font-semibold text-zinc-50">{barber.direccion}</div>
+        <div class="mt-1 text-sm text-zinc-400">{barber.ciudad}</div>
+      </div>
+      <div class="rounded-2xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-5">
+        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Horarios</div>
+        <div class="mt-2 text-sm text-zinc-200">{barber.horarios.semana}</div>
+        <div class="mt-1 text-sm text-zinc-200">{barber.horarios.sabado}</div>
+      </div>
+      <div class="rounded-2xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-5">
+        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">WhatsApp</div>
+        <div class="mt-2 text-base font-semibold text-zinc-50">{barber.whatsapp}</div>
+        <div class="mt-1 text-xs text-zinc-500">Placeholder configurable antes del deploy final.</div>
+      </div>
+    </div>
   </section>
-</BaseLayout>
-
 </BaseLayout>

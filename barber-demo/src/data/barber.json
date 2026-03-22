@@ -1,32 +1,22 @@
 {
-  "nombre": "NOIR Barber Studio",
+  "nombre": "Revolución Estética Masculina",
   "ciudad": "Montevideo",
-  "direccion": "Av. Ejemplo 1234, Centro",
-  "whatsapp": "59899123456",
+  "direccion": "Ruta 8 km 26.500",
+  "whatsapp": "59800000000",
   "horarios": {
-    "dias": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-    "abre": "10:00",
-    "cierra": "19:30",
-    "nota": "Turnos puntuales. Llegá 5 min antes."
+    "semana": "Lunes a Viernes 10:00 a 19:00",
+    "sabado": "Sábado 9:00 a 19:00",
+    "nota": "Placeholder configurable: reemplazar por el WhatsApp real y ajustar si cambia la agenda."
   },
-   "media": {
+  "media": {
     "heroDesktop": "/images/hero-desktop.png",
     "heroMobile": "/images/hero-mobile.png",
-    "overlayTexture": "/images/overlay-texture.png",
-    "services": {
-      "fade": "/images/services/fade.png",
-      "beard": "/images/services/beard.png"
-    },
+    "overlayTexture": "/images/hero/hero-overlay-texture-2048.png",
     "testimonialsBg": "/images/testimonials-bg.png",
     "location": "/images/location-facade.png",
     "turnos": "/images/turnos-phone.png",
-    "barbers": {
-      "a": "/images/barbers/barber-a.png",
-      "b": "/images/barbers/barber-b.png"
-    },
     "og": "/images/og-cover.png"
   },
-
   "galeria": [
     { "id": "01", "before": "/images/gallery/01-before.png", "after": "/images/gallery/01-after.png" },
     { "id": "02", "before": "/images/gallery/02-before.png", "after": "/images/gallery/02-after.png" },
@@ -38,78 +28,76 @@
   "servicios": [
     {
       "id": "corte",
-      "nombre": "Corte",
+      "nombre": "Corte de imagen",
       "precio": 650,
       "duracion": 40,
-      "descripcion": "Corte moderno, limpieza de contornos y finalización prolija.",
+      "descripcion": "Diagnóstico breve, corte actual, contornos precisos y terminación limpia para una imagen profesional.",
       "popular": true,
       "imagen": "/images/services/corte-fade.png",
-      "alt": "Detalle de corte fade moderno, terminado prolijo."
+      "alt": "Detalle de corte masculino premium con terminación prolija."
     },
     {
       "id": "barba",
-      "nombre": "Barba",
+      "nombre": "Diseño de barba",
       "precio": 550,
       "duracion": 35,
-      "descripcion": "Perfilado + rebaje + toalla caliente (mock).",
+      "descripcion": "Perfilado, rebaje y definición con foco en equilibrio facial y presencia cotidiana.",
       "popular": true,
       "imagen": "/images/services/barba-toalla.png",
-      "alt": "Perfilado de barba moderno con toalla oscura, estilo premium."
+      "alt": "Perfilado de barba con estética masculina premium."
     },
     {
       "id": "combo",
-      "nombre": "Corte + Barba",
+      "nombre": "Experiencia integral",
       "precio": 1100,
       "duracion": 75,
-      "descripcion": "Combo completo, pensado para salir listo.",
+      "descripcion": "Corte + barba en una sesión pensada para salir impecable, cómodo y listo para tu agenda.",
       "popular": true,
       "imagen": "/images/services/combo-corte-barba.png",
-      "alt": "Trabajo combinado de corte y barba en ambiente de barbería moderna."
+      "alt": "Sesión integral de cuidado masculino en estudio premium."
     },
     {
       "id": "perfilado",
-      "nombre": "Perfilado",
+      "nombre": "Mantenimiento express",
       "precio": 450,
       "duracion": 20,
-      "descripcion": "Contornos y definición rápida (ideal mantenimiento).",
+      "descripcion": "Repaso de contornos, laterales y terminaciones para mantener una imagen cuidada entre visitas.",
       "popular": false,
       "imagen": "/images/services/perfilado-contorno.png",
-      "alt": "Macro de contorno y perfilado con terminación precisa."
+      "alt": "Contornos y mantenimiento estético masculino con terminación precisa."
     },
     {
       "id": "afeitado",
-      "nombre": "Afeitado",
+      "nombre": "Afeitado premium",
       "precio": 700,
       "duracion": 45,
-      "descripcion": "Afeitado clásico y calmado (mock).",
+      "descripcion": "Ritual de afeitado confortable con preparación de piel y acabado sobrio de alto detalle.",
       "popular": false,
       "imagen": "/images/services/afeitado-premium.png",
-      "alt": "Afeitado moderno minimal con herramientas premium y luz suave."
+      "alt": "Afeitado masculino premium con herramientas profesionales y luz suave."
     }
   ],
-"barberos": [
+  "barberos": [
     {
       "nombre": "Nico",
-      "especialidad": "Fade / Textura",
+      "especialidad": "Imagen personal / Corte editorial",
       "foto": "/images/barbers/barbero-01-editorial.png",
-      "alt": "Retrato editorial de barbero moderno."
+      "alt": "Especialista en imagen masculina con enfoque editorial."
     },
     {
       "nombre": "Santi",
-      "especialidad": "Barba / Perfilado",
+      "especialidad": "Barba / Definición y mantenimiento",
       "foto": "/images/barbers/barbero-02-anonimo.png",
-      "alt": "Plano de torso y manos con herramientas, estilo editorial anónimo."
+      "alt": "Profesional de estética masculina especializado en barba y detalles."
     }
   ],
-  
   "branding": {
-    "logoMark": "/images/brand/noir-mark.png",
-    "logoWordmark": "/images/brand/noir-mark.png"
+    "logoMark": "",
+    "logoWordmark": ""
   },
-
-"testimonios": [
-    { "nombre": "Martín", "texto": "Quedó impecable y sin esperar.", "rating": 5 },
-    { "nombre": "Gonzalo", "texto": "Prolijos con los detalles y puntuales.", "rating": 5 },
-    { "nombre": "Fede", "texto": "Me armó el turno por WhatsApp en un minuto.", "rating": 4 }
+  "testimonios": [
+    { "nombre": "Martín", "texto": "Encontré un espacio serio, prolijo y con una atención que mejora mi imagen en cada visita.", "rating": 5 },
+    { "nombre": "Gonzalo", "texto": "Reservé online en minutos y el servicio fue puntual, profesional y muy cuidado.", "rating": 5 },
+    { "nombre": "Fede", "texto": "La experiencia se siente premium sin perder cercanía. Ideal para mantener una presencia impecable.", "rating": 5 }
   ]
 }

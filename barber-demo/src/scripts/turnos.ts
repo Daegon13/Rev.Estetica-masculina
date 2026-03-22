@@ -72,7 +72,7 @@ function genTimes(start = "10:00", end = "19:30") {
     for (const btn of serviceBtns) {
       const is = btn.dataset.service === name;
       btn.classList.toggle("ring-2", is);
-      btn.classList.toggle("ring-cyanA-500/40", is);
+      btn.classList.toggle("ring-[#c8a27c]/40", is);
     }
 
     refresh();
@@ -115,8 +115,8 @@ function genTimes(start = "10:00", end = "19:30") {
     b.addEventListener("click", () => {
       setSelectedDay(d);
       // highlight day buttons
-      Array.from(daysList.children).forEach((c) => c.classList.remove("ring-2", "ring-cyanA-500/40"));
-      b.classList.add("ring-2", "ring-cyanA-500/40");
+      Array.from(daysList.children).forEach((c) => c.classList.remove("ring-2", "ring-[#c8a27c]/40"));
+      b.classList.add("ring-2", "ring-[#c8a27c]/40");
     });
     daysList.appendChild(b);
   }
@@ -131,8 +131,8 @@ function genTimes(start = "10:00", end = "19:30") {
     b.textContent = t;
     b.addEventListener("click", () => {
       setSelectedTime(t);
-      Array.from(timesList.children).forEach((c) => c.classList.remove("ring-2", "ring-cyanA-500/40"));
-      b.classList.add("ring-2", "ring-cyanA-500/40");
+      Array.from(timesList.children).forEach((c) => c.classList.remove("ring-2", "ring-[#c8a27c]/40"));
+      b.classList.add("ring-2", "ring-[#c8a27c]/40");
     });
     timesList.appendChild(b);
   }
