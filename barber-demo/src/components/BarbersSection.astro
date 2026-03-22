@@ -1,0 +1,48 @@
+---
+type Barbero = {
+  nombre: string;
+  especialidad: string;
+  foto?: string;
+  alt?: string;
+};
+
+type Props = {
+  barberos: Barbero[];
+};
+
+const { barberos } = Astro.props as Props;
+---
+
+<section class="mt-10">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <h2 class="text-xl font-semibold text-zinc-50">Barberos</h2>
+      <p class="mt-2 text-sm text-zinc-400">
+        Equipo con mano firme y detalle fino.
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-6 grid gap-4 md:grid-cols-2">
+    {barberos.map((b) => (
+      <article class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden shadow-soft">
+        {b.foto ? (
+          <img
+            src={b.foto}
+            alt={b.alt ?? b.nombre}
+            class="h-56 w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <div class="h-56 w-full bg-gradient-to-b from-white/5 to-black/20"></div>
+        )}
+
+        <div class="p-5">
+          <div class="text-base font-semibold text-zinc-50">{b.nombre}</div>
+          <div class="mt-1 text-sm text-zinc-400">{b.especialidad}</div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

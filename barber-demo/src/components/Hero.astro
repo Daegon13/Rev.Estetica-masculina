@@ -1,0 +1,80 @@
+---
+import barber from "@data/barber.json";
+
+const { nombre, ciudad, media } = barber;
+
+type Props = {
+  title?: string;
+  subtitle?: string;
+};
+
+const {
+  title = "Corte impecable. Turno en segundos.",
+  subtitle = `Barbería en ${ciudad}. Reservá por WhatsApp al momento.`
+} = Astro.props as Props;
+---
+
+<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-soft">
+  <!-- Background responsive -->
+  <picture class="absolute inset-0 -z-10">
+    <source media="(max-width: 768px)" srcset={media.heroMobile} />
+    <img
+      src={media.heroDesktop}
+      alt=""
+      class="h-full w-full object-cover"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </picture>
+
+  <!-- Dark overlay for contrast -->
+  <div aria-hidden="true" class="absolute inset-0 bg-black/65"></div>
+
+  <!-- Luxury overlay texture -->
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 pointer-events-none mix-blend-overlay opacity-25"
+    style={`background-image:url(${media.overlayTexture}); background-size: 512px 512px;`}
+  ></div>
+
+  <div class="relative px-6 py-14 sm:px-10 sm:py-20">
+    <div class="max-w-xl">
+      <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-200">
+        <span class="h-2 w-2 rounded-full bg-cyanA-500/70"></span>
+        {nombre} · Reservas por WhatsApp
+      </div>
+
+      <h1 class="mt-5 text-3xl sm:text-5xl font-semibold tracking-tight text-zinc-50">
+        {title}
+      </h1>
+
+      <p class="mt-4 text-sm sm:text-base text-zinc-200/80 leading-relaxed">
+        {subtitle}
+      </p>
+
+      <div class="mt-7 flex flex-col sm:flex-row gap-2">
+        <a
+          href="/turnos"
+          class="rounded-2xl bg-cyanA-500/15 border border-cyanA-500/25 px-5 py-4 text-center text-sm font-semibold text-cyanA-500 hover:bg-cyanA-500/20 transition shadow-glow"
+        >
+          Reservar por WhatsApp
+        </a>
+
+        <a
+          href="/servicios"
+          class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-center text-sm font-semibold text-zinc-100 hover:bg-white/10 transition"
+        >
+          Ver precios
+        </a>
+
+        <a
+          href="/galeria"
+          class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-center text-sm font-semibold text-zinc-100 hover:bg-white/10 transition"
+        >
+          Ver trabajos
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

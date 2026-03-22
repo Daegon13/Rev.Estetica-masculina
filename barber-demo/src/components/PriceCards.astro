@@ -1,0 +1,27 @@
+---
+import { formatUYU } from "@lib/whatsapp";
+
+type Servicio = {
+  nombre: string;
+  precio: number;
+  duracion: number;
+  descripcion: string;
+  popular: boolean;
+};
+
+const { servicios } = Astro.props as { servicios: Servicio[] };
+---
+
+<div class="grid md:grid-cols-2 gap-4">
+  {servicios.map((s: Servicio) => (
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+      <div class="flex items-center justify-between">
+        <div class="font-semibold text-zinc-50">{s.nombre}</div>
+        <div class="font-semibold text-zinc-50">{formatUYU(s.precio)}</div>
+      </div>
+      <div class="mt-1 text-sm text-zinc-400">{s.duracion} min</div>
+      <div class="mt-3 h-px bg-white/10"></div>
+      <div class="mt-3 text-sm text-zinc-400">{s.descripcion}</div>
+    </div>
+  ))}
+</div>

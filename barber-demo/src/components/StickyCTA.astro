@@ -1,0 +1,29 @@
+---
+import { buildWhatsAppLink } from "@lib/whatsapp";
+const { brand, whatsapp } = Astro.props;
+
+const href = buildWhatsAppLink(
+  whatsapp,
+  `Hola, quiero reservar un turno en ${brand}. ¿Tienen disponibilidad hoy?`
+);
+---
+<div class="fixed bottom-0 inset-x-0 z-50 md:hidden">
+  <div class="mx-auto max-w-6xl px-4 pb-4">
+    <div class="rounded-2xl bg-ink-900/85 backdrop-blur border border-white/10 shadow-soft p-2 flex gap-2">
+      <a
+        href="/servicios"
+        class="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm font-semibold text-zinc-100 hover:bg-white/10 transition"
+      >
+        Ver precios
+      </a>
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        class="flex-[1.25] rounded-xl bg-cyanA-500/15 border border-cyanA-500/25 px-4 py-3 text-center text-sm font-semibold text-cyanA-500 hover:bg-cyanA-500/20 transition shadow-glow"
+      >
+        Reservar por WhatsApp
+      </a>
+    </div>
+  </div>
+</div>

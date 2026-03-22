@@ -1,0 +1,124 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@components/Hero.astro";
+import Section from "@components/Section.astro";
+import type { BarberData, Servicio } from "../lib/types";
+import BarbersSection from "../components/BarbersSection.astro";
+import ServiceCard from "@components/ServiceCard.astro";
+import Testimonials from "@components/Testimonials.astro";
+import barber from "@data/barber.json";
+import { buildWhatsAppLink } from "@lib/whatsapp";
+
+const ctaPrimary = buildWhatsAppLink(
+  barber.whatsapp,
+  `Hola, quiero reservar un turno en ${barber.nombre}. ¿Qué disponibilidad tienen hoy?`
+);
+const data = barber as unknown as BarberData;
+
+// destacados: populares primero (hasta 4), si no hay populares toma los primeros 4
+const featured =
+  (barber.servicios?.filter((s) => s.popular) ?? []).slice(0, 4).length > 0
+    ? (barber.servicios.filter((s) => s.popular)).slice(0, 4)
+    : (barber.servicios ?? []).slice(0, 4);
+
+// “Servicios top” (tomamos los populares o los primeros 4)
+const top: Servicio[] = (data.servicios ?? []).filter(s => s.popular).slice(0, 4);
+const title = `${data.nombre} — Turnos por WhatsApp`;
+const description = `Reservá en segundos. Servicios claros y WhatsApp directo. ${data.ciudad}.`;
+---
+<BaseLayout title={title} description={description}>
+  <Hero />
+  
+  
+
+      <div class="mt-6 grid sm:grid-cols-3 gap-3">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div class="text-xs text-zinc-500">Promesa</div>
+          <div class="mt-1 text-sm font-semibold text-zinc-100">Reservá en 10s</div>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div class="text-xs text-zinc-500">Precios</div>
+          <div class="mt-1 text-sm font-semibold text-zinc-100">Sin sorpresas</div>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div class="text-xs text-zinc-500">Atención</div>
+          <div class="mt-1 text-sm font-semibold text-zinc-100">Puntual y prolija</div>
+        </div>
+      </div>
+    </div>
+
+    
+
+  <Section
+    title="Servicios destacados"
+    subtitle="Lo que ves es lo que pagas con estimacion de duracion incluida."
+  >
+    <div class="grid md:grid-cols-2 gap-4">
+      {featured.map((s) => (
+        <ServiceCard service={s} brand={barber.nombre} whatsapp={barber.whatsapp} />
+      ))}
+    </div>
+  </Section>
+  
+
+  <BarbersSection barberos={barber.barberos} />
+  
+
+  <Section
+    title="Confianza"
+    subtitle="Tres razones simples para elegir un turno acá."
+  >
+    <div class="grid md:grid-cols-3 gap-4">
+      {[
+        { t: "Turnos sin vueltas", d: "Elegís servicio y te responde el WhatsApp." },
+        { t: "Barberos con experiencia", d: "Cortes modernos y contornos limpios." },
+        { t: "Atención puntual", d: "Agenda ordenada, ritmo constante." }
+      ].map((x) => (
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div class="font-semibold text-zinc-100">{x.t}</div>
+          <div class="mt-2 text-sm text-zinc-400">{x.d}</div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section
+    title="Testimonios"
+    subtitle="Reseñas cortas (mock) para darle credibilidad a la demo."
+  >
+    <Testimonials items={barber.testimonios} />
+  </Section>
+
+  <section class="mt-6 rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8 shadow-soft">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="text-xl font-semibold text-zinc-50">¿Listo para reservar?</div>
+        <div class="mt-2 text-sm text-zinc-400">Abrís WhatsApp con el mensaje armado y coordinás al toque.</div>
+      </div>
+      <div class="flex gap-2">
+        <a href="/turnos" class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm font-semibold text-zinc-100 hover:bg-white/10 transition">
+          Elegir horario
+        </a>
+        <a href={ctaPrimary} target="_blank" rel="noreferrer" class="rounded-2xl bg-cyanA-500/15 border border-cyanA-500/25 px-5 py-4 text-sm font-semibold text-cyanA-500 hover:bg-cyanA-500/20 transition shadow-glow">
+          Reservar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-10">
+    <h1 class="text-2xl font-semibold text-zinc-50">Ubicación</h1>
+
+    <div class="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-soft">
+      <img
+        src={barber.media.location}
+        alt="Fachada del local"
+        class="h-[260px] w-full object-cover md:h-[360px]"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- tu contenido existente: horarios + mapa placeholder + cómo llegar -->
+  </section>
+</BaseLayout>

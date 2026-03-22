@@ -1,0 +1,27 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import barber from "@data/barber.json";
+
+const title = `Ubicación — ${barber.nombre}`;
+const description = `Dirección, horarios y cómo llegar. ${barber.ciudad}.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="py-10">
+    <h1 class="text-2xl font-semibold text-zinc-50">Ubicación</h1>
+
+    <div class="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-soft">
+      <img
+        src={barber.media.location}
+        alt="Fachada del local"
+        class="h-[260px] w-full object-cover md:h-[360px]"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- tu contenido existente: horarios + mapa placeholder + cómo llegar -->
+  </section>
+</BaseLayout>
+
+</BaseLayout>

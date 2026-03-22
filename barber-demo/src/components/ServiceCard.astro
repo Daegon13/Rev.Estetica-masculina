@@ -1,0 +1,154 @@
+---
+import { formatUYU, buildWhatsAppLink } from "@lib/whatsapp";
+import barber from "@data/barber.json";
+
+type Servicio = {
+  id?: string;
+  nombre: string;
+  precio: number;
+  duracion: number;
+  descripcion: string;
+  popular?: boolean;
+  imagen?: string;
+  alt?: string;
+};
+
+type Props = {
+  // formas soportadas (para evitar undefined)
+  service?: Servicio;
+  s?: Servicio;
+
+  // si usaste spread {...s}, estos podrían venir sueltos
+  id?: string;
+  nombre?: string;
+  precio?: number;
+  duracion?: number;
+  descripcion?: string;
+  popular?: boolean;
+  imagen?: string;
+  alt?: string;
+
+  brand?: string;
+  whatsapp?: string;
+};
+
+const p = Astro.props as Props;
+
+// 1) Tomar service desde cualquiera de las formas
+const serviceFromProps = p.service ?? p.s;
+
+// 2) Si vino “suelto” por spread, reconstruirlo
+const looksLikeService =
+  typeof p.nombre === "string" &&
+  typeof p.precio === "number" &&
+  typeof p.duracion === "number" &&
+  typeof p.descripcion === "string";
+
+const service: Servicio | undefined =
+  serviceFromProps ??
+  (looksLikeService
+    ? {
+        id: p.id,
+        nombre: p.nombre as string,
+        precio: p.precio as number,
+        duracion: p.duracion as number,
+        descripcion: p.descripcion as string,
+        popular: p.popular,
+        imagen: p.imagen,
+        alt: p.alt
+      }
+    : undefined);
+
+// Fallbacks seguros
+const brand = p.brand ?? barber?.nombre ?? "Barbería";
+const whatsapp = p.whatsapp ?? barber?.whatsapp ?? "";
+
+// Guardas
+const hasService = !!service?.nombre;
+const canWhatsApp = typeof whatsapp === "string" && whatsapp.trim().length > 5;
+
+// Construcción segura del WA link
+const msg = hasService
+  ? `Hola, quiero un turno para ${service!.nombre} en ${brand}. ¿Tienen disponibilidad hoy?`
+  : `Hola, quiero un turno en ${brand}. ¿Tienen disponibilidad hoy?`;
+
+const href = canWhatsApp ? buildWhatsAppLink(whatsapp, msg) : "/turnos";
+
+const idSafe = hasService
+  ? (service!.id ?? service!.nombre.toLowerCase().replace(/\s+/g, "-"))
+  : "servicio";
+---
+
+{hasService ? (
+  <article class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden shadow-soft">
+    {service!.imagen ? (
+      <img
+        src={service!.imagen}
+        alt={service!.alt ?? service!.nombre}
+        class="h-44 w-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <div class="h-44 w-full bg-gradient-to-b from-white/5 to-black/20"></div>
+    )}
+
+    <div class="p-5">
+      <div class="flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h3 class="truncate text-base font-semibold text-zinc-50">
+              {service!.nombre}
+            </h3>
+
+            {service!.popular ? (
+              <span class="rounded-full border border-cyan-300/25 bg-cyan-400/10 px-2 py-0.5 text-[11px] font-semibold text-cyan-200">
+                Popular
+              </span>
+            ) : null}
+          </div>
+
+          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">
+            {service!.descripcion}
+          </p>
+        </div>
+
+        <div class="shrink-0 text-right">
+          <div class="text-xs text-zinc-400">{service!.duracion} min</div>
+          <div class="mt-1 text-lg font-semibold text-zinc-50">
+            {formatUYU(service!.precio)}
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 grid grid-cols-2 gap-2">
+        <button
+          type="button"
+          class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-zinc-100 hover:bg-white/10 transition"
+          data-open-schedule="true"
+          data-service-id={idSafe}
+        >
+          Elegir horario
+        </button>
+
+        <a
+          class="rounded-xl bg-cyan-400/15 border border-cyan-300/25 px-4 py-3 text-center text-sm font-semibold text-cyan-100 hover:bg-cyan-400/20 transition"
+          href={href}
+          target={canWhatsApp ? "_blank" : undefined}
+          rel={canWhatsApp ? "noopener noreferrer" : undefined}
+        >
+          Reservar
+        </a>
+      </div>
+    </div>
+  </article>
+) : (
+  // No rompe la página: y te deja claro que hay una invocación mal hecha
+  <article class="rounded-2xl border border-red-500/20 bg-red-500/5 p-5">
+    <div class="text-sm font-semibold text-red-200">ServiceCard sin servicio</div>
+    <p class="mt-2 text-sm text-red-200/80">
+      En alguna página se está llamando este componente sin <code>service</code> (o con spread incompleto).
+      Buscá usos de <code>&lt;ServiceCard</code> y asegurate de pasar <code>service={"{...}"}</code>.
+    </p>
+  </article>
+)}

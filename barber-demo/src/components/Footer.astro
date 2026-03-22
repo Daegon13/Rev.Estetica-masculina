@@ -1,0 +1,37 @@
+---
+import barber from "@data/barber.json";
+
+const mark = barber?.branding?.logoMark;
+const wordmark = barber?.branding?.logoWordmark;
+---
+
+<footer class="mt-16 border-t border-white/10 bg-black/30">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+      <div class="flex items-center gap-3">
+        {wordmark ? (
+          <img src={wordmark} alt={`${barber.nombre} logo`} class="h-20 auto" loading="lazy" decoding="async" />
+        ) : null}
+
+        <div>
+          <div class="text-sm font-semibold text-zinc-50">{barber.nombre}</div>
+          <div class="mt-1 text-xs text-zinc-400">{barber.direccion} · {barber.ciudad}</div>
+        </div>
+      </div>
+
+      {wordmark ? (
+        <img
+          src={wordmark}
+          alt=""
+          class="h-20 w-auto opacity-70"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : null}
+    </div>
+
+    <div class="mt-6 text-xs text-zinc-500">
+      Demo — sin backend real. Reservas por WhatsApp.
+    </div>
+  </div>
+</footer>

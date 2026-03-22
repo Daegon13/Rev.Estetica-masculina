@@ -1,0 +1,6 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#0B0F13"/>
+  <rect x="40" y="40" width="720" height="520" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.10)"/>
+  <text x="70" y="110" font-size="42" fill="rgba(255,255,255,0.28)" font-family="Inter, system-ui">ANTES</text>
+  <text x="70" y="160" font-size="18" fill="rgba(255,255,255,0.20)" font-family="Inter, system-ui">Placeholder optimizado (SVG)</text>
+</svg>

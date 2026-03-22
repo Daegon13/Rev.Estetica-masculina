@@ -1,0 +1,6 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#07090B"/>
+  <rect x="40" y="40" width="720" height="520" rx="28" fill="rgba(34,211,238,0.06)" stroke="rgba(34,211,238,0.22)"/>
+  <text x="70" y="110" font-size="42" fill="rgba(255,255,255,0.34)" font-family="Inter, system-ui">DESPUÉS</text>
+  <text x="70" y="160" font-size="18" fill="rgba(255,255,255,0.22)" font-family="Inter, system-ui">Listo para reemplazar por fotos reales</text>
+</svg>

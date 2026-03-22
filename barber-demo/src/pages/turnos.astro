@@ -1,0 +1,28 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import barber from "@data/barber.json";
+import TurnosFlow from "@components/TurnosFlow.astro";
+
+const title = `Turnos — ${barber.nombre}`;
+const description = "Elegí servicio, día y hora. Reservá por WhatsApp.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="py-10">
+    <div class="grid gap-6 lg:grid-cols-[1.2fr_.8fr]">
+      <div>
+        <TurnosFlow />
+      </div>
+
+      <aside class="overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-soft">
+        <img
+          src={barber.media.turnos}
+          alt="Reserva rápida desde el celular"
+          class="h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

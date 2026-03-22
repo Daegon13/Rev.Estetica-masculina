@@ -1,0 +1,69 @@
+---
+import barber from "@data/barber.json";
+import { buildWhatsAppLink } from "@lib/whatsapp";
+
+type Props = {
+  currentPath?: string;
+};
+
+const { currentPath = "/" } = Astro.props as Props;
+
+const wa = buildWhatsAppLink(
+  barber.whatsapp,
+  `Hola, quiero reservar un turno en ${barber.nombre}. ¿Qué disponibilidad tienen hoy?`
+);
+
+const mark = barber?.branding?.logoMark;
+const wordmark = barber?.branding?.logoWordmark;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-cyan-300/40 rounded-xl px-2 py-1">
+      {wordmark ? (
+        <img
+          src={wordmark}
+          alt={`${barber.nombre} logo`}
+          class="h-20 w-auto opacity-95 group-hover:opacity-100 transition"
+          loading="eager"
+          decoding="async"
+        />
+      ) : mark ? (
+        <img
+          src={mark}
+          alt={`${barber.nombre} logo`}
+          class="h-20 w-20 opacity-95 group-hover:opacity-100 transition"
+          loading="eager"
+          decoding="async"
+        />
+      ) : (
+        <span class="text-sm font-semibold tracking-tight text-zinc-50">{barber.nombre}</span>
+      )}
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6 text-sm text-zinc-300">
+      <a class={`hover:text-zinc-50 transition ${currentPath === "/" ? "text-zinc-50" : ""}`} href="/">Inicio</a>
+      <a class={`hover:text-zinc-50 transition ${currentPath === "/servicios" ? "text-zinc-50" : ""}`} href="/servicios">Servicios</a>
+      <a class={`hover:text-zinc-50 transition ${currentPath === "/galeria" ? "text-zinc-50" : ""}`} href="/galeria">Galería</a>
+      <a class={`hover:text-zinc-50 transition ${currentPath === "/ubicacion" ? "text-zinc-50" : ""}`} href="/ubicacion">Ubicación</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="/turnos"
+        class="hidden sm:inline-flex rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-100 hover:bg-white/10 transition"
+      >
+        Ver horarios
+      </a>
+
+      <a
+        href={wa}
+        target="_blank"
+        rel="noreferrer"
+        class="inline-flex items-center justify-center rounded-xl bg-cyan-400/15 border border-cyan-300/25 px-4 py-2 text-sm font-semibold text-cyan-100 hover:bg-cyan-400/20 transition"
+      >
+        Reservar
+      </a>
+    </div>
+  </div>
+</header>

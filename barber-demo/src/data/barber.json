@@ -1,0 +1,115 @@
+{
+  "nombre": "NOIR Barber Studio",
+  "ciudad": "Montevideo",
+  "direccion": "Av. Ejemplo 1234, Centro",
+  "whatsapp": "59899123456",
+  "horarios": {
+    "dias": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    "abre": "10:00",
+    "cierra": "19:30",
+    "nota": "Turnos puntuales. Llegá 5 min antes."
+  },
+   "media": {
+    "heroDesktop": "/images/hero-desktop.png",
+    "heroMobile": "/images/hero-mobile.png",
+    "overlayTexture": "/images/overlay-texture.png",
+    "services": {
+      "fade": "/images/services/fade.png",
+      "beard": "/images/services/beard.png"
+    },
+    "testimonialsBg": "/images/testimonials-bg.png",
+    "location": "/images/location-facade.png",
+    "turnos": "/images/turnos-phone.png",
+    "barbers": {
+      "a": "/images/barbers/barber-a.png",
+      "b": "/images/barbers/barber-b.png"
+    },
+    "og": "/images/og-cover.png"
+  },
+
+  "galeria": [
+    { "id": "01", "before": "/images/gallery/01-before.png", "after": "/images/gallery/01-after.png" },
+    { "id": "02", "before": "/images/gallery/02-before.png", "after": "/images/gallery/02-after.png" },
+    { "id": "03", "before": "/images/gallery/03-before.png", "after": "/images/gallery/03-after.png" },
+    { "id": "04", "before": "/images/gallery/04-before.png", "after": "/images/gallery/04-after.png" },
+    { "id": "05", "before": "/images/gallery/05-before.png", "after": "/images/gallery/05-after.png" },
+    { "id": "06", "before": "/images/gallery/06-before.png", "after": "/images/gallery/06-after.png" }
+  ],
+  "servicios": [
+    {
+      "id": "corte",
+      "nombre": "Corte",
+      "precio": 650,
+      "duracion": 40,
+      "descripcion": "Corte moderno, limpieza de contornos y finalización prolija.",
+      "popular": true,
+      "imagen": "/images/services/corte-fade.png",
+      "alt": "Detalle de corte fade moderno, terminado prolijo."
+    },
+    {
+      "id": "barba",
+      "nombre": "Barba",
+      "precio": 550,
+      "duracion": 35,
+      "descripcion": "Perfilado + rebaje + toalla caliente (mock).",
+      "popular": true,
+      "imagen": "/images/services/barba-toalla.png",
+      "alt": "Perfilado de barba moderno con toalla oscura, estilo premium."
+    },
+    {
+      "id": "combo",
+      "nombre": "Corte + Barba",
+      "precio": 1100,
+      "duracion": 75,
+      "descripcion": "Combo completo, pensado para salir listo.",
+      "popular": true,
+      "imagen": "/images/services/combo-corte-barba.png",
+      "alt": "Trabajo combinado de corte y barba en ambiente de barbería moderna."
+    },
+    {
+      "id": "perfilado",
+      "nombre": "Perfilado",
+      "precio": 450,
+      "duracion": 20,
+      "descripcion": "Contornos y definición rápida (ideal mantenimiento).",
+      "popular": false,
+      "imagen": "/images/services/perfilado-contorno.png",
+      "alt": "Macro de contorno y perfilado con terminación precisa."
+    },
+    {
+      "id": "afeitado",
+      "nombre": "Afeitado",
+      "precio": 700,
+      "duracion": 45,
+      "descripcion": "Afeitado clásico y calmado (mock).",
+      "popular": false,
+      "imagen": "/images/services/afeitado-premium.png",
+      "alt": "Afeitado moderno minimal con herramientas premium y luz suave."
+    }
+  ],
+"barberos": [
+    {
+      "nombre": "Nico",
+      "especialidad": "Fade / Textura",
+      "foto": "/images/barbers/barbero-01-editorial.png",
+      "alt": "Retrato editorial de barbero moderno."
+    },
+    {
+      "nombre": "Santi",
+      "especialidad": "Barba / Perfilado",
+      "foto": "/images/barbers/barbero-02-anonimo.png",
+      "alt": "Plano de torso y manos con herramientas, estilo editorial anónimo."
+    }
+  ],
+  
+  "branding": {
+    "logoMark": "/images/brand/noir-mark.png",
+    "logoWordmark": "/images/brand/noir-mark.png"
+  },
+
+"testimonios": [
+    { "nombre": "Martín", "texto": "Quedó impecable y sin esperar.", "rating": 5 },
+    { "nombre": "Gonzalo", "texto": "Prolijos con los detalles y puntuales.", "rating": 5 },
+    { "nombre": "Fede", "texto": "Me armó el turno por WhatsApp en un minuto.", "rating": 4 }
+  ]
+}

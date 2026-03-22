@@ -1,0 +1,165 @@
+---
+import barber from "@data/barber.json";
+import { formatUYU } from "@lib/whatsapp";
+import scriptUrl from "@scripts/turnos.ts?url";
+
+const servicios = barber.servicios;
+const brand = barber.nombre;
+const whatsapp = barber.whatsapp;
+
+// preselect por query param (?servicio=...)
+const url = new URL(Astro.request.url);
+const pre = url.searchParams.get("servicio") ?? "";
+---
+<section class="rounded-2xl border border-white/10 bg-white/5 p-5 md:p-6 shadow-soft">
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-50">Turnos</h1>
+      <p class="mt-2 text-sm text-zinc-400 max-w-2xl">
+        Elegí servicio, elegí día/hora (mock) y reservá por WhatsApp con el mensaje armado.
+      </p>
+    </div>
+
+    <div class="rounded-xl border border-white/10 bg-ink-900/50 px-4 py-3">
+      <div class="text-xs text-zinc-500">Reserva rápida</div>
+      <div class="text-sm text-zinc-200">Objetivo: <span class="text-zinc-50 font-semibold">menos de 10 segundos</span></div>
+    </div>
+  </div>
+
+  <div class="mt-6 grid lg:grid-cols-2 gap-6">
+    <!-- Selector de servicio -->
+    <div>
+      <div class="text-sm font-semibold text-zinc-200">1) Elegí un servicio</div>
+
+      <div class="mt-3 grid gap-3">
+        {servicios.map((s) => (
+          <button
+            type="button"
+            class="service-btn text-left rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition"
+            data-service={s.nombre}
+          >
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="flex items-center gap-2">
+                  <div class="font-semibold text-zinc-50">{s.nombre}</div>
+                  {s.popular && (
+                    <span class="text-[11px] rounded-full bg-cyanA-500/15 border border-cyanA-500/25 px-2 py-0.5 text-cyanA-500">
+                      Popular
+                    </span>
+                  )}
+                </div>
+                <div class="mt-1 text-sm text-zinc-400">{s.descripcion}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm text-zinc-400">{s.duracion} min</div>
+                <div class="text-base font-semibold text-zinc-50">{formatUYU(s.precio)}</div>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Resumen + modal horarios + CTA -->
+    <div>
+      <div class="text-sm font-semibold text-zinc-200">2) Elegí día y hora</div>
+
+      <div class="mt-3 rounded-2xl border border-white/10 bg-ink-900/40 p-5">
+        <div class="text-xs text-zinc-500">Resumen</div>
+
+        <div class="mt-3 grid gap-2">
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-zinc-400">Servicio</div>
+            <div id="selectedService" class="text-sm font-semibold text-zinc-50">—</div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-zinc-400">Día</div>
+            <div id="selectedDay" class="text-sm font-semibold text-zinc-50">—</div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-zinc-400">Hora</div>
+            <div id="selectedTime" class="text-sm font-semibold text-zinc-50">—</div>
+          </div>
+        </div>
+
+        <div class="mt-4 flex flex-col sm:flex-row gap-2">
+          <button
+            type="button"
+            id="openSlots"
+            class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-zinc-100 hover:bg-white/10 transition"
+          >
+            Ver horarios (mock)
+          </button>
+
+          <a
+            id="waCta"
+            href="#"
+            target="_blank"
+            rel="noreferrer"
+            class="rounded-xl bg-cyanA-500/15 border border-cyanA-500/25 px-4 py-3 text-center text-sm font-semibold text-cyanA-500 hover:bg-cyanA-500/20 transition shadow-glow opacity-60 pointer-events-none"
+          >
+            Reservar por WhatsApp
+          </a>
+        </div>
+
+        <p class="mt-3 text-xs text-zinc-500">
+          Tip: para demo, el calendario es simulado, pero el WhatsApp sale real.
+        </p>
+      </div>
+
+      <div class="mt-4 rounded-2xl border border-white/10 bg-white/5 p-5">
+        <div class="text-sm font-semibold text-zinc-200">Confianza</div>
+        <ul class="mt-3 grid gap-2 text-sm text-zinc-300">
+          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-cyanA-500/70"></span> Turnos sin vueltas: elegís y listo.</li>
+          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-cyanA-500/70"></span> Barberos con experiencia (mock).</li>
+          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-cyanA-500/70"></span> Atención puntual y prolija.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de horarios -->
+  <dialog id="slotsDialog" class="backdrop:bg-black/60 rounded-2xl border border-white/10 bg-ink-950 text-zinc-100 w-[min(720px,92vw)]">
+    <div class="p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="text-lg font-semibold">Horarios (mock)</div>
+          <div class="text-sm text-zinc-400">Elegí un día y una hora para armar el WhatsApp.</div>
+        </div>
+        <button id="closeSlots" class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm hover:bg-white/10 transition">
+          Cerrar
+        </button>
+      </div>
+
+      <div class="mt-5 grid md:grid-cols-2 gap-4">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div class="text-sm font-semibold text-zinc-200">Días</div>
+          <div id="daysList" class="mt-3 grid grid-cols-2 gap-2"></div>
+        </div>
+
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div class="text-sm font-semibold text-zinc-200">Horas</div>
+          <div class="mt-1 text-xs text-zinc-500">Slots simulados (cada 30 min)</div>
+          <div id="timesList" class="mt-3 grid grid-cols-3 gap-2"></div>
+        </div>
+      </div>
+
+      <div class="mt-5 rounded-2xl border border-white/10 bg-ink-900/40 p-4">
+        <div class="text-xs text-zinc-500">Mensaje que se enviará</div>
+        <div id="previewMsg" class="mt-2 text-sm text-zinc-200 leading-relaxed">Seleccioná servicio, día y hora.</div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Config para el script -->
+  <div
+    id="turnosConfig"
+    data-brand={brand}
+    data-whatsapp={whatsapp}
+    data-services={JSON.stringify(servicios)}
+    data-preselected={pre}
+    class="hidden"
+  ></div>
+
+  <script type="module" src={scriptUrl}></script>
+</section>
