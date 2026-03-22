@@ -16,16 +16,16 @@ const { barberos } = Astro.props as Props;
 <section class="mt-10">
   <div class="flex items-end justify-between gap-6">
     <div>
-      <h2 class="text-xl font-semibold text-zinc-50">Barberos</h2>
+      <h2 class="text-xl font-semibold text-zinc-50">Equipo profesional</h2>
       <p class="mt-2 text-sm text-zinc-400">
-        Equipo con mano firme y detalle fino.
+        Especialistas en imagen masculina, detalle técnico y atención consistente.
       </p>
     </div>
   </div>
 
   <div class="mt-6 grid gap-4 md:grid-cols-2">
     {barberos.map((b) => (
-      <article class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden shadow-soft">
+      <article class="overflow-hidden rounded-2xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] shadow-soft">
         {b.foto ? (
           <img
             src={b.foto}

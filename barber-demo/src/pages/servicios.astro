@@ -2,23 +2,19 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import barber from "../data/barber.json";
 import Section from "@components/Section.astro";
-import type { BarberData, Servicio } from "../lib/types";
 import ServiceCard from "../components/ServiceCard.astro";
 import BarbersSection from "../components/BarbersSection.astro";
 
-const data = barber as unknown as BarberData;
-const servicios = (data.servicios ?? []) as Servicio[];
-
 const title = `Servicios y precios — ${barber.nombre}`;
-const description = "Servicios con duración y precio. Reservá directo por WhatsApp.";
+const description = "Servicios de estética masculina con duración, precio y reserva directa por WhatsApp.";
 ---
-
 
 <BaseLayout title={title} description={description}>
   <Section
     title="Servicios"
+    subtitle="Opciones claras para resolver corte, barba y mantenimiento con una experiencia premium y comercial."
   >
-    <div class="grid md:grid-cols-2 gap-4">
+    <div class="grid gap-4 md:grid-cols-2">
       {barber.servicios.map((s) => (
         <ServiceCard service={s} brand={barber.nombre} whatsapp={barber.whatsapp} />
       ))}
