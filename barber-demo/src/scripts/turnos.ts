@@ -31,12 +31,12 @@ type BookingState = {
 const STORAGE_KEY = "rev-estetica-booking-demo";
 
 const steps = [
-  { id: "service", label: "Servicio", helper: "Elegí experiencia" },
-  { id: "professional", label: "Profesional", helper: "Quién te atiende" },
-  { id: "date", label: "Fecha", helper: "Día disponible" },
-  { id: "time", label: "Hora", helper: "Slot sugerido" },
-  { id: "details", label: "Datos", helper: "Nombre y teléfono" },
-  { id: "confirm", label: "Confirmar", helper: "Resumen final" }
+  { id: "service", label: "Servicio", helper: "Elegí la experiencia" },
+  { id: "professional", label: "Profesional", helper: "Definí quién te atiende" },
+  { id: "date", label: "Fecha", helper: "Seleccioná el día" },
+  { id: "time", label: "Hora", helper: "Reservá tu horario" },
+  { id: "details", label: "Tus datos", helper: "Completá la reserva" },
+  { id: "confirm", label: "Resumen", helper: "Confirmá por WhatsApp" }
 ] as const;
 
 function $(sel: string) {
@@ -55,9 +55,9 @@ function sanitizePhone(value: string) {
 
 function validateDetails(name: string, phone: string) {
   const errors: string[] = [];
-  if (name.trim().length < 3) errors.push("Ingresá un nombre válido de al menos 3 caracteres.");
+  if (name.trim().length < 3) errors.push("Ingresá tu nombre y apellido para continuar.");
   const digits = phone.replace(/\D/g, "");
-  if (digits.length < 8) errors.push("Ingresá un teléfono válido para continuar.");
+  if (digits.length < 8) errors.push("Ingresá un teléfono válido para recibir la confirmación.");
   return errors;
 }
 
@@ -80,7 +80,7 @@ function formatDateLong(iso: string) {
 
 function buildMessage(brand: string, service: Servicio | undefined, professional: Profesional | undefined, state: BookingState) {
   return [
-    `Hola ${brand}, quiero confirmar este turno:`,
+    `Hola ${brand}, quiero confirmar esta reserva:`,
     `• Servicio: ${service?.nombre ?? "—"}`,
     `• Profesional: ${professional?.nombre ?? "—"}`,
     `• Fecha: ${formatDateLong(state.dateIso)}`,
@@ -163,7 +163,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
       const date = new Date(today);
       date.setDate(today.getDate() + offset);
       const iso = date.toISOString().slice(0, 10);
-      const demand = index % 3 === 0 ? "Alta demanda" : index % 2 === 0 ? "Recomendado" : "Disponible";
+      const demand = index % 3 === 0 ? "Alta demanda" : index % 2 === 0 ? "Últimos cupos" : "Disponible";
       return { iso, demand };
     });
   }
@@ -194,7 +194,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
       case "professional":
         return state.professionalId ? [] : ["Elegí un profesional para continuar."];
       case "date":
-        return state.dateIso ? [] : ["Elegí una fecha disponible."];
+        return state.dateIso ? [] : ["Seleccioná una fecha disponible."];
       case "time":
         return state.time ? [] : ["Elegí un horario para reservar."];
       case "details":
@@ -285,12 +285,15 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
           case "service":
             return `
               <section class="${hidden ? "hidden" : ""} rounded-[28px] border border-white/10 bg-white/5 p-4 md:p-5">
-                <div class="mb-4 flex items-center justify-between gap-3">
+                <div class="mb-5 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div>
                     <div class="text-xs uppercase tracking-[0.24em] text-zinc-500">Paso 1</div>
-                    <h3 class="mt-2 text-xl font-semibold text-white">Seleccioná un servicio</h3>
+                    <h3 class="mt-2 text-xl font-semibold text-white">Elegí el servicio que querés reservar</h3>
+                    <p class="mt-2 max-w-2xl text-sm leading-6 text-zinc-400">Seleccioná la experiencia que mejor se adapte a tu visita. Te mostramos duración y valor para que reserves con total claridad.</p>
                   </div>
-                  <div class="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-zinc-400">Autoadvance activado</div>
+                  <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-300">
+                    Selección inmediata con avance guiado.
+                  </div>
                 </div>
                 <div class="grid gap-3 lg:grid-cols-2">${services
                   .map(
@@ -304,7 +307,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                           <div>
                             <div class="flex flex-wrap items-center gap-2">
                               <div class="text-lg font-semibold text-white">${item.nombre}</div>
-                              ${item.popular ? '<span class="rounded-full border border-[#c8a27c]/35 bg-[#c8a27c]/12 px-2 py-1 text-[11px] text-stone-100">Más pedido</span>' : ""}
+                              ${item.popular ? '<span class="rounded-full border border-[#c8a27c]/35 bg-[#c8a27c]/12 px-2 py-1 text-[11px] text-stone-100">Más elegido</span>' : ""}
                             </div>
                             <p class="mt-2 text-sm leading-6 text-zinc-400">${item.descripcion}</p>
                           </div>
@@ -324,8 +327,8 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
               <section class="${hidden ? "hidden" : ""} rounded-[28px] border border-white/10 bg-white/5 p-4 md:p-5">
                 <div class="mb-4">
                   <div class="text-xs uppercase tracking-[0.24em] text-zinc-500">Paso 2</div>
-                  <h3 class="mt-2 text-xl font-semibold text-white">Elegí el profesional ideal</h3>
-                  <p class="mt-2 text-sm text-zinc-400">Mostramos solo quienes realizan el servicio seleccionado para que el flujo se sienta inteligente.</p>
+                  <h3 class="mt-2 text-xl font-semibold text-white">Elegí tu profesional</h3>
+                  <p class="mt-2 text-sm leading-6 text-zinc-400">Te mostramos perfiles compatibles con el servicio seleccionado para que elijas según estilo, especialidad y disponibilidad.</p>
                 </div>
                 <div class="grid gap-3 md:grid-cols-2">${availableProfessionals
                   .map(
@@ -340,7 +343,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                           <div>
                             <div class="text-lg font-semibold text-white">${professional.nombre}</div>
                             <div class="mt-1 text-sm text-zinc-400">${professional.especialidad}</div>
-                            <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#c8a27c]">Disponible para ${service?.nombre ?? "este servicio"}</div>
+                            <div class="mt-2 text-xs uppercase tracking-[0.2em] text-[#c8a27c]">Atiende ${service?.nombre ?? "este servicio"}</div>
                           </div>
                         </div>
                       </button>
@@ -354,8 +357,8 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
               <section class="${hidden ? "hidden" : ""} rounded-[28px] border border-white/10 bg-white/5 p-4 md:p-5">
                 <div class="mb-4">
                   <div class="text-xs uppercase tracking-[0.24em] text-zinc-500">Paso 3</div>
-                  <h3 class="mt-2 text-xl font-semibold text-white">Seleccioná una fecha</h3>
-                  <p class="mt-2 text-sm text-zinc-400">Slots simulados con etiquetas de demanda para dar sensación de agenda viva.</p>
+                  <h3 class="mt-2 text-xl font-semibold text-white">Seleccioná la fecha</h3>
+                  <p class="mt-2 text-sm leading-6 text-zinc-400">Elegí el día que mejor te quede. Resaltamos los horarios más demandados para ayudarte a decidir más rápido.</p>
                 </div>
                 <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">${dates
                   .map(
@@ -367,7 +370,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                       }">
                         <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">${date.demand}</div>
                         <div class="mt-2 text-lg font-semibold text-white">${formatDateLong(date.iso)}</div>
-                        <div class="mt-1 text-sm text-zinc-400">Reserva en menos de 1 minuto</div>
+                        <div class="mt-1 text-sm text-zinc-400">Elegí la fecha y continuá con el horario.</div>
                       </button>
                     `
                   )
@@ -380,11 +383,11 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                 <div class="mb-4 flex items-start justify-between gap-3">
                   <div>
                     <div class="text-xs uppercase tracking-[0.24em] text-zinc-500">Paso 4</div>
-                    <h3 class="mt-2 text-xl font-semibold text-white">Elegí la hora</h3>
-                    <p class="mt-2 text-sm text-zinc-400">Horarios demo con lógica básica por profesional para una experiencia más creíble.</p>
+                    <h3 class="mt-2 text-xl font-semibold text-white">Elegí el horario</h3>
+                    <p class="mt-2 text-sm leading-6 text-zinc-400">Estos horarios están organizados para que cierres la reserva en pocos segundos. Elegí el que mejor se acomode a tu agenda.</p>
                   </div>
                   <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-right">
-                    <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Fecha</div>
+                    <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Fecha elegida</div>
                     <div class="mt-1 text-sm font-semibold text-white">${formatDateLong(state.dateIso)}</div>
                   </div>
                 </div>
@@ -407,18 +410,18 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                 <div class="mb-4">
                   <div class="text-xs uppercase tracking-[0.24em] text-zinc-500">Paso 5</div>
                   <h3 class="mt-2 text-xl font-semibold text-white">Completá tus datos</h3>
-                  <p class="mt-2 text-sm text-zinc-400">Validación básica del lado cliente, persistencia local y estructura lista para migrar después a Supabase o una capa serverless.</p>
+                  <p class="mt-2 text-sm leading-6 text-zinc-400">Dejanos tu nombre y WhatsApp para enviarte la solicitud de reserva ya armada y agilizar la confirmación.</p>
                 </div>
                 <div class="grid gap-4 md:grid-cols-2">
                   <label class="space-y-2 rounded-[24px] border border-white/10 bg-black/20 p-4">
-                    <span class="text-xs uppercase tracking-[0.2em] text-zinc-500">Nombre</span>
+                    <span class="text-xs uppercase tracking-[0.2em] text-zinc-500">Nombre y apellido</span>
                     <input id="bookingName" value="${state.name}" placeholder="Ej: Martín Pérez" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-[#c8a27c]/45 focus:outline-none" />
-                    <span class="text-xs text-zinc-500">Usamos validación simple para demo y futura integración.</span>
+                    <span class="text-xs text-zinc-500">Así identificamos tu reserva al momento de confirmarla.</span>
                   </label>
                   <label class="space-y-2 rounded-[24px] border border-white/10 bg-black/20 p-4">
-                    <span class="text-xs uppercase tracking-[0.2em] text-zinc-500">Teléfono</span>
+                    <span class="text-xs uppercase tracking-[0.2em] text-zinc-500">WhatsApp de contacto</span>
                     <input id="bookingPhone" value="${state.phone}" placeholder="Ej: 099 123 456" inputmode="tel" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-[#c8a27c]/45 focus:outline-none" />
-                    <span class="text-xs text-zinc-500">Formato libre; normalizamos el input para el CTA final.</span>
+                    <span class="text-xs text-zinc-500">Usalo para recibir la confirmación y continuar la conversación.</span>
                   </label>
                 </div>
                 ${detailErrors.length ? `<div class="mt-4 rounded-2xl border border-amber-400/25 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">${detailErrors.join("<br />")}</div>` : ""}
@@ -430,10 +433,10 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                 <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                   <div>
                     <div class="text-xs uppercase tracking-[0.24em] text-[#e2c3a4]">Paso 6</div>
-                    <h3 class="mt-2 text-2xl font-semibold text-white">Confirmá el turno</h3>
-                    <p class="mt-2 max-w-2xl text-sm leading-6 text-zinc-200">Pantalla final pensada para demo comercial: resume la reserva, da sensación de estado persistido y ofrece un CTA claro para continuar por WhatsApp.</p>
+                    <h3 class="mt-2 text-2xl font-semibold text-white">Revisá y confirmá tu reserva</h3>
+                    <p class="mt-2 max-w-2xl text-sm leading-6 text-zinc-200">Ya está todo listo. Revisá el detalle y continuá por WhatsApp con un mensaje prearmado para cerrar la confirmación en un solo toque.</p>
                   </div>
-                  <div class="rounded-2xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">${state.confirmed ? "Turno demo confirmado" : "Listo para confirmar"}</div>
+                  <div class="rounded-2xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">${state.confirmed ? "Reserva lista para enviar" : "Revisión final"}</div>
                 </div>
                 <div class="mt-5 grid gap-3 md:grid-cols-2">
                   ${[
@@ -453,13 +456,13 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                     .join("")}
                 </div>
                 <div class="mt-5 rounded-2xl border border-white/10 bg-black/20 p-4">
-                  <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Mensaje listo para enviar</div>
+                  <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Mensaje listo para WhatsApp</div>
                   <pre class="mt-3 whitespace-pre-wrap text-sm leading-6 text-zinc-200">${buildMessage(brand, service, selectedProfessional, state)}</pre>
                 </div>
                 <div class="mt-5 flex flex-col gap-3 sm:flex-row">
-                  <button type="button" id="confirmBooking" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/10 px-5 text-sm font-semibold text-white transition hover:bg-white/15">Confirmar turno</button>
+                  <button type="button" id="confirmBooking" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/10 px-5 text-sm font-semibold text-white transition hover:bg-white/15">Validar resumen</button>
                   <button type="button" id="editBooking" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-transparent px-5 text-sm font-semibold text-zinc-200 transition hover:bg-white/10">Editar datos</button>
-                  <a id="bookingWhatsApp" href="${encodeWA(phone, buildMessage(brand, service, selectedProfessional, state))}" target="_blank" rel="noreferrer" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#c8a27c]/40 bg-[#c8a27c]/18 px-5 text-sm font-semibold text-white transition hover:bg-[#c8a27c]/28">Enviar / continuar por WhatsApp</a>
+                  <a id="bookingWhatsApp" href="${encodeWA(phone, buildMessage(brand, service, selectedProfessional, state))}" target="_blank" rel="noreferrer" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#c8a27c]/40 bg-[#c8a27c]/18 px-5 text-sm font-semibold text-white transition hover:bg-[#c8a27c]/28">Confirmar por WhatsApp</a>
                 </div>
               </section>
             `;
@@ -550,11 +553,11 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
     const professional = getSelectedProfessional();
     const summaryItems = [
       ["Servicio", service ? `${service.nombre} · ${formatCurrency(service.precio)}` : "Elegí una opción"],
-      ["Profesional", professional?.nombre ?? "Asigná quién te atiende"],
+      ["Profesional", professional?.nombre ?? "Elegí quién te atiende"],
       ["Fecha", state.dateIso ? formatDateLong(state.dateIso) : "Seleccioná un día"],
       ["Hora", state.time || "Elegí un horario"],
       ["Cliente", state.name || "Completá tus datos"],
-      ["WhatsApp", state.phone || "Agregá teléfono"]
+      ["WhatsApp", state.phone || "Agregá tu contacto"]
     ];
 
     summary.innerHTML = `
@@ -569,15 +572,15 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
         )
         .join("")}
       <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
-        <div class="text-[11px] uppercase tracking-[0.22em] text-zinc-500">Estado del flujo</div>
-        <div class="mt-2 text-sm font-medium text-white">${state.confirmed ? "Demo confirmada y lista para enviar." : `Paso ${currentStep + 1} de ${steps.length}`}</div>
+        <div class="text-[11px] uppercase tracking-[0.22em] text-zinc-500">Estado de la reserva</div>
+        <div class="mt-2 text-sm font-medium text-white">${state.confirmed ? "Resumen validado y listo para confirmar por WhatsApp." : `Paso ${currentStep + 1} de ${steps.length}`}</div>
       </div>
     `;
   }
 
   function renderProgress() {
     const percent = `${((currentStep + 1) / steps.length) * 100}%`;
-    progressText.textContent = state.confirmed ? "Reserva demo confirmada" : `Paso ${currentStep + 1} de ${steps.length}`;
+    progressText.textContent = state.confirmed ? "Reserva lista para confirmar" : `Paso ${currentStep + 1} de ${steps.length}`;
     progressBar.style.width = percent;
 
     const pills = [
@@ -594,12 +597,12 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
             (item) => `<span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-zinc-200">${item}</span>`
           )
           .join("")
-      : '<span class="rounded-full border border-dashed border-white/10 px-3 py-1.5 text-xs text-zinc-500">Todavía no hay selección</span>';
+      : '<span class="rounded-full border border-dashed border-white/10 px-3 py-1.5 text-xs text-zinc-500">Todavía no elegiste tu reserva</span>';
   }
 
   function renderControls() {
     backBtn.disabled = currentStep === 0;
-    nextBtn.textContent = currentStep === steps.length - 1 ? (state.confirmed ? "Demo confirmada" : "Validar resumen") : "Continuar";
+    nextBtn.textContent = currentStep === steps.length - 1 ? (state.confirmed ? "Resumen validado" : "Validar resumen") : "Continuar";
     nextBtn.disabled = currentStep === steps.length - 1 && state.confirmed;
   }
 
