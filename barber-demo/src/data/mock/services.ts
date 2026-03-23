@@ -7,10 +7,8 @@ export const mockServices: Service[] = [
     precio: 690,
     duracion: 45,
     descripcion:
-      "Corte personalizado con asesoría de estilo, contornos prolijos y terminación pensada para una imagen masculina actual.",
-    popular: true,
-    imagen: "/images/services/corte-fade.png",
-    alt: "Corte masculino premium con terminación precisa."
+      "Corte personalizado con asesoría de forma y terminación precisa para sostener una imagen prolija, actual y profesional.",
+    popular: true
   },
   {
     id: "barba-y-perfilado",
@@ -18,10 +16,8 @@ export const mockServices: Service[] = [
     precio: 590,
     duracion: 35,
     descripcion:
-      "Diseño, rebaje y definición de barba para ordenar el rostro y reforzar una presencia cuidada en el día a día.",
-    popular: true,
-    imagen: "/images/services/barba-toalla.png",
-    alt: "Servicio de barba y perfilado con acabado prolijo."
+      "Diseño, rebaje y definición de barba para equilibrar facciones y mantener un look limpio entre reuniones, eventos o rutina diaria.",
+    popular: true
   },
   {
     id: "corte-barba",
@@ -29,21 +25,8 @@ export const mockServices: Service[] = [
     precio: 1180,
     duracion: 75,
     descripcion:
-      "Sesión integral para renovar cabello y barba en una misma visita, con resultado equilibrado y acabado premium.",
-    popular: true,
-    imagen: "/images/services/combo-corte-barba.png",
-    alt: "Experiencia integral de corte y barba en estudio masculino."
-  },
-  {
-    id: "afeitado-premium",
-    nombre: "Afeitado premium con toalla caliente",
-    precio: 790,
-    duracion: 45,
-    descripcion:
-      "Ritual clásico con preparación de piel, toalla caliente y acabado suave para clientes que quieren verse impecables sin irritación.",
-    popular: false,
-    imagen: "/images/services/afeitado-premium.png",
-    alt: "Afeitado premium masculino con toalla caliente y acabado prolijo."
+      "Servicio integral para renovar cabello y barba en una sola sesión, con resultado coherente y presencia masculina bien resuelta.",
+    popular: true
   },
   {
     id: "limpieza-facial-masculina",
@@ -51,20 +34,25 @@ export const mockServices: Service[] = [
     precio: 930,
     duracion: 50,
     descripcion:
-      "Limpieza profunda y descongestiva pensada para hombres que quieren recuperar la piel después de la semana o antes de un evento.",
-    popular: false,
-    imagen: "/images/services/afeitado-premium.png",
-    alt: "Limpieza facial masculina en cabina premium."
+      "Limpieza profunda pensada para piel masculina: descongestiona, mejora textura y deja el rostro listo para la semana o una ocasión especial.",
+    popular: false
+  },
+  {
+    id: "perfilado-cejas",
+    nombre: "Perfilado de cejas",
+    precio: 420,
+    duracion: 20,
+    descripcion:
+      "Corrección sutil para ordenar la mirada sin feminizar el gesto, ideal para completar una imagen cuidada y sobria.",
+    popular: false
   },
   {
     id: "servicio-express",
-    nombre: "Mantenimiento express",
+    nombre: "Servicio express",
     precio: 520,
     duracion: 25,
     descripcion:
-      "Repaso rápido de laterales, nuca o barba para sostener una imagen prolija entre servicios completos.",
-    popular: false,
-    imagen: "/images/services/perfilado-contorno.png",
-    alt: "Servicio express de mantenimiento estético masculino."
+      "Mantenimiento rápido de contornos, laterales o barba para llegar prolijo a una jornada exigente sin pasar por un servicio completo.",
+    popular: false
   }
 ];

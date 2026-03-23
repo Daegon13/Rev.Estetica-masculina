@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import barber from "../data/barber.json";
 import { demoServices } from "../data/services";
 import Section from "@components/Section.astro";
-import ServiceCard from "../components/ServiceCard.astro";
+import ServicesGrid from "@components/ServicesGrid.astro";
 import BarbersSection from "../components/BarbersSection.astro";
 
 const title = `Servicios y precios — ${barber.nombre}`;
@@ -13,13 +13,9 @@ const description = "Servicios de estética masculina con duración, precio y re
 <BaseLayout title={title} description={description}>
   <Section
     title="Servicios"
-    subtitle="Una grilla de estética masculina integral pensada para comunicar imagen, cuidado y una experiencia premium."
+    subtitle="Una propuesta de servicios demo enfocada en imagen masculina integral, con datos reutilizables para reserva, agenda y futuras automatizaciones."
   >
-    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-      {demoServices.map((s) => (
-        <ServiceCard service={s} brand={barber.nombre} whatsapp={barber.whatsapp} />
-      ))}
-    </div>
+    <ServicesGrid servicios={demoServices} />
 
     <BarbersSection barberos={barber.barberos} />
   </Section>
