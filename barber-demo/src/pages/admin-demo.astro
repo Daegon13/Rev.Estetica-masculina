@@ -86,10 +86,10 @@ const fmtDate = (date: string, options: Intl.DateTimeFormatOptions) =>
             Demo comercial
           </div>
           <h1 class="mt-4 text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
-            Panel con datos demo creíbles para mostrar operación, agenda y recurrencia sin depender de datos reales.
+            Panel demo con narrativa comercial, agenda visible y datos consistentes para vender operación, orden y recurrencia sin exponer datos reales.
           </h1>
           <p class="mt-4 max-w-2xl text-sm leading-6 text-zinc-400 sm:text-base">
-            La demo de Rev. Estética Masculina aterriza servicios, profesionales, clientes y automatizaciones en un negocio local de Montevideo para que el lead entienda rápido cómo se vería su día a día usando el sistema.
+            La demo de Rev. Estética Masculina aterriza servicios, profesionales, clientes y automatizaciones en un negocio local de Montevideo para que el lead vea una operación plausible, ordenada y lista para escalar comercialmente.
           </p>
         </div>
 
@@ -127,14 +127,15 @@ const fmtDate = (date: string, options: Intl.DateTimeFormatOptions) =>
       <section class="rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-soft sm:p-6">
         <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 class="text-xl font-semibold text-zinc-50">Agenda del día</h2>
+            <h2 class="text-xl font-semibold text-zinc-50">Agenda comercial del día</h2>
             <p class="mt-1 text-sm text-zinc-400">12 citas demo con estados variados para mostrar seguimiento real de agenda y atención.</p>
           </div>
           <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">{todayLabel}</div>
         </div>
 
         <div class="mt-5 overflow-hidden rounded-2xl border border-white/10">
-          <table class="min-w-full divide-y divide-white/10 text-left text-sm">
+          <div class="overflow-x-auto">
+          <table class="min-w-[760px] w-full divide-y divide-white/10 text-left text-sm">
             <thead class="bg-white/5 text-zinc-400">
               <tr>
                 <th class="px-4 py-3 font-medium">Hora</th>
@@ -160,6 +161,7 @@ const fmtDate = (date: string, options: Intl.DateTimeFormatOptions) =>
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </section>
 
@@ -196,14 +198,15 @@ const fmtDate = (date: string, options: Intl.DateTimeFormatOptions) =>
     <section class="rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-soft sm:p-6">
       <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 class="text-xl font-semibold text-zinc-50">Clientes y reactivación</h2>
+          <h2 class="text-xl font-semibold text-zinc-50">Clientes, historial y reactivación</h2>
           <p class="mt-1 text-sm text-zinc-400">18 clientes demo con últimas visitas, cumpleaños y contexto comercial para campañas útiles.</p>
         </div>
         <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">CRM liviano</div>
       </div>
 
       <div class="mt-5 overflow-hidden rounded-2xl border border-white/10">
-        <table class="min-w-full divide-y divide-white/10 text-left text-sm">
+        <div class="overflow-x-auto">
+          <table class="min-w-[760px] w-full divide-y divide-white/10 text-left text-sm">
           <thead class="bg-white/5 text-zinc-400">
             <tr>
               <th class="px-4 py-3 font-medium">Nombre</th>
@@ -227,6 +230,7 @@ const fmtDate = (date: string, options: Intl.DateTimeFormatOptions) =>
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </section>
   </section>

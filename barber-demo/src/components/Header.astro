@@ -15,6 +15,13 @@ const wa = buildWhatsAppLink(
 
 const mark = barber?.branding?.logoMark;
 const wordmark = barber?.branding?.logoWordmark;
+const navItems = [
+  { href: "/", label: "Inicio" },
+  { href: "/servicios", label: "Servicios" },
+  { href: "/galeria", label: "Galería" },
+  { href: "/ubicacion", label: "Ubicación" },
+  { href: "/admin-demo", label: "Admin demo" }
+];
 ---
 
 <header class="fixed left-0 right-0 top-0 z-50 border-b border-stone-200/10 bg-[#0c0e10]/78 backdrop-blur-xl">
@@ -45,29 +52,29 @@ const wordmark = barber?.branding?.logoWordmark;
     </a>
 
     <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
-      <a class={`transition hover:text-stone-100 ${currentPath === "/" ? "text-stone-100" : ""}`} href="/">Inicio</a>
-      <a class={`transition hover:text-stone-100 ${currentPath === "/servicios" ? "text-stone-100" : ""}`} href="/servicios">Servicios</a>
-      <a class={`transition hover:text-stone-100 ${currentPath === "/galeria" ? "text-stone-100" : ""}`} href="/galeria">Galería</a>
-      <a class={`transition hover:text-stone-100 ${currentPath === "/ubicacion" ? "text-stone-100" : ""}`} href="/ubicacion">Ubicación</a>
-      <a class={`transition hover:text-stone-100 ${currentPath === "/admin-demo" ? "text-stone-100" : ""}`} href="/admin-demo">Admin demo</a>
+      {navItems.map((item) => (
+        <a class={`transition hover:text-stone-100 ${currentPath === item.href ? "text-stone-100" : ""}`} href={item.href}>{item.label}</a>
+      ))}
     </nav>
 
     <div class="flex items-center gap-2">
-      <a
-        href="/turnos"
-        class="hidden rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:bg-white/10 sm:inline-flex"
-      >
-        Ver horarios
-      </a>
-
-      <a
-        href={wa}
-        target="_blank"
-        rel="noreferrer"
-        class="inline-flex items-center justify-center rounded-xl border border-[#c8a27c]/35 bg-[#c8a27c]/14 px-4 py-2 text-sm font-semibold text-stone-100 transition hover:bg-[#c8a27c]/22"
-      >
+      <a href="/turnos" class="btn-secondary hidden min-h-0 rounded-xl px-4 py-2 sm:inline-flex">Ver horarios</a>
+      <a href={wa} target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl border border-[#c8a27c]/35 bg-[#c8a27c]/14 px-4 py-2 text-sm font-semibold text-stone-100 transition hover:bg-[#c8a27c]/22">
         Reservar
       </a>
     </div>
   </div>
+
+  <nav class="border-t border-white/5 bg-black/10 px-4 py-2 md:hidden">
+    <div class="mx-auto flex max-w-6xl gap-2 overflow-x-auto pb-1 text-sm text-zinc-300 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`whitespace-nowrap rounded-full border px-3 py-2 transition ${currentPath === item.href ? "border-[#c8a27c]/35 bg-[#c8a27c]/14 text-stone-100" : "border-white/10 bg-white/5 hover:bg-white/10"}`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </nav>
 </header>
