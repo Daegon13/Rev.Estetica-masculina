@@ -11,14 +11,14 @@ const description = `Dirección, horarios y cómo llegar. ${barber.ciudad}.`;
     <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
       <div>
         <h1 class="text-2xl font-semibold text-zinc-50">Ubicación</h1>
-        <p class="mt-2 max-w-2xl text-sm text-zinc-400">Información lista para deploy con placeholders configurables para dirección, horarios y contacto comercial.</p>
+        <p class="mt-2 max-w-2xl text-sm text-zinc-400">Visitá el estudio, consultá los horarios de atención y coordiná tu turno por WhatsApp si necesitás asistencia adicional.</p>
       </div>
     </div>
 
     <div class="mt-6 overflow-hidden rounded-2xl border border-stone-200/10 bg-white/5 shadow-soft">
       <img
         src={barber.media.location}
-        alt="Fachada del estudio"
+        alt="Fachada de Revolución Estética Masculina"
         class="h-[260px] w-full object-cover md:h-[360px]"
         loading="lazy"
         decoding="async"
@@ -39,7 +39,7 @@ const description = `Dirección, horarios y cómo llegar. ${barber.ciudad}.`;
       <div class="rounded-2xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-5">
         <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">WhatsApp</div>
         <div class="mt-2 text-base font-semibold text-zinc-50">{barber.whatsapp}</div>
-        <div class="mt-1 text-xs text-zinc-500">Placeholder configurable antes del deploy final.</div>
+        <div class="mt-1 text-xs text-zinc-500">Respuesta en horario comercial para coordinar turnos y consultas.</div>
       </div>
     </div>
   </section>
