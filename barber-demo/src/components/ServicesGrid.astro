@@ -1,0 +1,37 @@
+---
+import { formatUYU } from "@lib/whatsapp";
+import type { Service } from "@types/domain";
+
+const { servicios } = Astro.props as { servicios: Service[] };
+---
+
+<div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+  {servicios.map((servicio) => (
+    <article class="group rounded-[1.75rem] border border-stone-200/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-5 shadow-soft transition duration-300 hover:border-[#c8a27c]/25 hover:bg-[linear-gradient(180deg,rgba(200,162,124,0.12),rgba(255,255,255,0.04))] sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.22em] text-[#c8a27c]/80">Estética masculina integral</div>
+          <h3 class="mt-3 text-xl font-semibold text-zinc-50">{servicio.nombre}</h3>
+        </div>
+        {servicio.popular ? (
+          <span class="rounded-full border border-[#c8a27c]/35 bg-[#c8a27c]/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-100">
+            Recomendado
+          </span>
+        ) : null}
+      </div>
+
+      <p class="mt-4 text-sm leading-7 text-zinc-400">{servicio.descripcion}</p>
+
+      <div class="mt-6 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-4">
+          <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Duración</div>
+          <div class="mt-2 text-base font-semibold text-zinc-50">{servicio.duracion} min</div>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-4">
+          <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Precio demo</div>
+          <div class="mt-2 text-base font-semibold text-zinc-50">{formatUYU(servicio.precio)}</div>
+        </div>
+      </div>
+    </article>
+  ))}
+</div>

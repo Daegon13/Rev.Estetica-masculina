@@ -4,7 +4,7 @@ import Hero from "@components/Hero.astro";
 import Section from "@components/Section.astro";
 import type { BarberData } from "../lib/types";
 import BarbersSection from "../components/BarbersSection.astro";
-import ServiceCard from "@components/ServiceCard.astro";
+import ServicesGrid from "@components/ServicesGrid.astro";
 import Testimonials from "@components/Testimonials.astro";
 import barber from "@data/barber.json";
 import { demoServices } from "@data/services";
@@ -20,10 +20,6 @@ const ctaWhatsApp = buildWhatsAppLink(
 );
 const data = barber as unknown as BarberData;
 
-const featured =
-  demoServices.filter((s) => s.popular).slice(0, 4).length > 0
-    ? demoServices.filter((s) => s.popular).slice(0, 4)
-    : demoServices.slice(0, 4);
 
 const ownerBenefits = [
   {
@@ -59,14 +55,10 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
   <Hero />
 
   <Section
-    title="Servicios destacados"
-    subtitle="Una selección curada para presentar corte, barba y cuidado facial con una imagen sólida, actual y profesional."
+    title="Servicios de estética masculina integral"
+    subtitle="Una grilla demo con servicios pensados para corte, barba y cuidado facial desde una propuesta premium, sobria y reutilizable para el flujo de turnos."
   >
-    <div class="grid gap-4 md:grid-cols-2">
-      {featured.map((s) => (
-        <ServiceCard service={s} brand={barber.nombre} whatsapp={barber.whatsapp} />
-      ))}
-    </div>
+    <ServicesGrid servicios={demoServices} />
   </Section>
 
   <Section
