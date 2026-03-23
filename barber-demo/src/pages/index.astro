@@ -27,27 +27,27 @@ const featured =
 
 const ownerBenefits = [
   {
-    title: "Agenda online que llena huecos",
+    title: "Agenda online",
     description:
-      "El cliente puede reservar sin esperar respuesta, y eso te ayuda a ocupar mejor los horarios que antes se perdían entre mensajes y llamadas.",
+      "Tus clientes reservan solos, vos ganás orden y el negocio deja de depender de responder mensajes a mano para llenar la agenda.",
     icon: "calendar"
   },
   {
-    title: "Confirmaciones que ordenan el día",
+    title: "Confirmaciones y recordatorios",
     description:
-      "Antes de abrir el local, ya sabés quién viene, quién confirmó y qué turnos necesitan seguimiento para que la jornada corra prolija.",
+      "El sistema confirma asistencia, recuerda cada turno y baja ausencias para que el día arranque más prolijo y rentable.",
     icon: "check"
   },
   {
-    title: "Reseñas que traen confianza",
+    title: "Pedido de reseñas",
     description:
-      "Después de una buena atención, el sistema invita a dejar opinión y te ayuda a mostrar movimiento real, buen servicio y clientes conformes.",
+      "Después de cada visita, podés activar pedidos automáticos de opinión para sumar prueba social y convertir buen servicio en más consultas.",
     icon: "star"
   },
   {
-    title: "Clientes que vuelven sin perseguirlos",
+    title: "Reactivación de clientes",
     description:
-      "Si alguien se enfrió, sale un mensaje en el momento justo para volver a mover la silla y recuperar ventas que parecían perdidas.",
+      "Si un cliente desaparece, el sistema lo vuelve a contactar en el momento justo para recuperar ventas sin perseguir uno por uno.",
     icon: "refresh"
   }
 ] as const;
@@ -90,28 +90,37 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
 
   <Section
     id="negocio"
-    title="Más que un turno: una experiencia integral de cuidado masculino"
-    subtitle="Pensado para clientes que buscan verse bien, ahorrar tiempo y mantener una rutina de cuidado con atención consistente."
+    title="Más que agenda: una herramienta para hacer crecer el negocio"
+    subtitle="No es solo una landing prolija: es una propuesta comercial que muestra cómo el sistema ordena la operación, reduce ausencias y ayuda a facturar más en un negocio local."
   >
-    <div class="grid gap-4 lg:grid-cols-[1.1fr_.9fr]">
-      <div class="rounded-[2rem] border border-[#c8a27c]/20 bg-[linear-gradient(180deg,rgba(200,162,124,0.16),rgba(255,255,255,0.03))] p-6 shadow-soft sm:p-7">
+    <div class="grid gap-5 lg:grid-cols-[1.05fr_.95fr]">
+      <div class="rounded-[2rem] border border-[#c8a27c]/20 bg-[linear-gradient(180deg,rgba(200,162,124,0.18),rgba(255,255,255,0.03))] p-6 shadow-soft sm:p-7">
         <div class="inline-flex rounded-full border border-[#c8a27c]/30 bg-[#c8a27c]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#e7c7a3]">
-          Experiencia profesional
+          Pensado para dueños de negocio local
         </div>
         <h3 class="mt-4 max-w-xl text-2xl font-semibold leading-tight text-zinc-50 sm:text-3xl">
-          Una atención que combina imagen, asesoría y una reserva simple para sostener una presencia impecable.
+          La home vende una solución completa: agenda, seguimiento y acciones para que cada cliente valga más.
         </h3>
         <p class="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">
-          Desde el primer contacto, el cliente encuentra servicios bien definidos, horarios claros y una comunicación directa para resolver su visita sin fricción.
+          En vez de mostrar solo un formulario bonito, esta sección deja claro qué gana el negocio: menos tiempo operativo, más asistencia, mejor reputación y clientes que regresan con más frecuencia.
         </p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-200">Cortes, barba y cuidado facial en un mismo lugar</div>
-          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-200">Asesoría personalizada según estilo y rutina</div>
-          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-200">Reserva ágil con seguimiento por WhatsApp</div>
+        <div class="mt-6 grid gap-3 sm:grid-cols-3">
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-zinc-200">
+            <div class="text-2xl font-semibold text-zinc-50">+ orden</div>
+            <div class="mt-1 text-xs uppercase tracking-[0.18em] text-zinc-400">menos ida y vuelta</div>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-zinc-200">
+            <div class="text-2xl font-semibold text-zinc-50">- ausencias</div>
+            <div class="mt-1 text-xs uppercase tracking-[0.18em] text-zinc-400">confirmación automática</div>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-zinc-200">
+            <div class="text-2xl font-semibold text-zinc-50">+ recurrencia</div>
+            <div class="mt-1 text-xs uppercase tracking-[0.18em] text-zinc-400">clientes que vuelven</div>
+          </div>
         </div>
       </div>
 
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+      <div class="grid gap-4 sm:grid-cols-2">
         {ownerBenefits.map((item) => (
           <article class="rounded-[1.75rem] border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-5 shadow-soft">
             <div class="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#c8a27c]/25 bg-[#c8a27c]/10 text-[#f2d3b0]">
