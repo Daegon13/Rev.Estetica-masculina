@@ -4,9 +4,15 @@ import barber from "@data/barber.json";
 const { nombre, ciudad, media } = barber;
 
 const trustBullets = [
-  "Confirmaciones automáticas",
-  "Menos ausencias",
-  "Más clientes que vuelven"
+  "Agenda online siempre visible",
+  "Confirmaciones automáticas por WhatsApp",
+  "Seguimiento comercial listo para vender"
+];
+
+const proofPoints = [
+  { value: "24/7", label: "Reservas disponibles" },
+  { value: "1 tap", label: "CTA clara para reservar" },
+  { value: "CRM", label: "Seguimiento visible" }
 ];
 ---
 
@@ -23,58 +29,52 @@ const trustBullets = [
     />
   </picture>
 
-  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(200,162,124,0.16),transparent_32%),linear-gradient(100deg,rgba(15,17,19,0.96)_0%,rgba(17,19,21,0.88)_48%,rgba(15,17,19,0.72)_100%)]"></div>
+  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(200,162,124,0.16),transparent_32%),linear-gradient(100deg,rgba(15,17,19,0.97)_0%,rgba(17,19,21,0.9)_48%,rgba(15,17,19,0.72)_100%)]"></div>
 
-  <div
-    aria-hidden="true"
-    class="absolute inset-0 pointer-events-none mix-blend-soft-light opacity-20"
-    style={`background-image:url(${media.overlayTexture}); background-size: 512px 512px;`}
-  ></div>
+  <div aria-hidden="true" class="absolute inset-0 pointer-events-none mix-blend-soft-light opacity-20" style={`background-image:url(${media.overlayTexture}); background-size: 512px 512px;`}></div>
 
-  <div class="relative grid gap-10 px-6 py-14 sm:px-10 sm:py-20 lg:grid-cols-[minmax(0,1.2fr)_320px] lg:items-end lg:px-14 lg:py-24">
-    <div class="max-w-2xl">
-      <div class="inline-flex items-center gap-2 rounded-full border border-stone-200/10 bg-black/25 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-stone-200/80">
+  <div class="relative grid gap-10 px-6 py-14 sm:px-10 sm:py-20 lg:grid-cols-[minmax(0,1.15fr)_360px] lg:items-end lg:px-14 lg:py-24">
+    <div class="max-w-3xl">
+      <div class="pill-badge">
         <span class="h-2 w-2 rounded-full bg-[#c8a27c]"></span>
-        {nombre} · Estética masculina moderna
+        {nombre} · Demo lista para cerrar leads
       </div>
 
-      <h1 class="mt-6 max-w-3xl text-4xl font-semibold leading-tight tracking-[-0.03em] text-zinc-50 sm:text-5xl lg:text-6xl">
-        Tu imagen impecable empieza con una reserva online sin fricción.
+      <h1 class="mt-6 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-0.04em] text-zinc-50 sm:text-5xl lg:text-6xl">
+        Estética masculina premium con una experiencia de reserva que ya se siente vendible.
       </h1>
 
-      <p class="mt-5 max-w-xl text-sm leading-7 text-stone-200/78 sm:text-base">
-        En {ciudad}, combinás turnos online, confirmaciones por WhatsApp, recordatorios automáticos y fidelización de clientes en una experiencia premium pensada para estética masculina actual.
+      <p class="mt-5 max-w-2xl text-sm leading-7 text-stone-200/78 sm:text-base">
+        En {ciudad}, esta home combina imagen de marca, turnos online, confirmaciones por WhatsApp y seguimiento comercial en una presentación sólida para demo, deploy y venta consultiva.
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <a
-          href="/turnos"
-          class="rounded-2xl border border-[#c8a27c]/35 bg-[#c8a27c]/16 px-6 py-4 text-center text-sm font-semibold text-stone-100 transition hover:bg-[#c8a27c]/24"
-        >
-          Reservar turno
-        </a>
+        <a href="/turnos" class="btn-primary">Reservar turno</a>
+        <a href="#como-funciona" class="btn-secondary">Ver cómo funciona</a>
+      </div>
 
-        <a
-          href="#como-funciona"
-          class="rounded-2xl border border-white/12 bg-white/[0.04] px-6 py-4 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/[0.08]"
-        >
-          Ver cómo funciona
-        </a>
+      <div class="mt-8 grid gap-3 sm:grid-cols-3">
+        {proofPoints.map((point) => (
+          <div class="panel-muted px-4 py-4">
+            <div class="text-2xl font-semibold text-zinc-50">{point.value}</div>
+            <div class="mt-1 text-xs uppercase tracking-[0.18em] text-zinc-400">{point.label}</div>
+          </div>
+        ))}
       </div>
     </div>
 
-    <div class="rounded-[1.75rem] border border-white/10 bg-black/20 p-5 backdrop-blur-sm">
-      <div class="text-xs uppercase tracking-[0.22em] text-zinc-500">Sistema de agenda</div>
-      <div class="mt-3 text-2xl font-semibold tracking-tight text-zinc-50">Más orden, menos mensajes sueltos.</div>
+    <div class="panel-muted p-5 backdrop-blur-sm">
+      <div class="text-xs uppercase tracking-[0.22em] text-zinc-500">Sistema comercial + operativo</div>
+      <div class="mt-3 text-2xl font-semibold tracking-tight text-zinc-50">Más orden en agenda. Mejor imagen frente al cliente.</div>
       <div class="mt-4 space-y-4 text-sm text-stone-300/80">
         <div class="border-l border-[#c8a27c]/35 pl-4">
-          El cliente reserva en segundos y recibe su confirmación directa por WhatsApp.
+          El lead ve una marca cuidada, servicios claros y un flujo de reserva que transmite profesionalismo.
         </div>
         <div class="border-l border-white/10 pl-4">
-          Los recordatorios automáticos ayudan a reducir ausencias y sostener puntualidad.
+          El dueño entiende rápido cómo reduce mensajes sueltos, ausencias y huecos sin sumar complejidad.
         </div>
         <div class="border-l border-white/10 pl-4">
-          Cada visita se convierte en una oportunidad real de fidelización.
+          El panel admin baja la demo a operación real: agenda, clientes y automatizaciones con criterio comercial.
         </div>
       </div>
     </div>

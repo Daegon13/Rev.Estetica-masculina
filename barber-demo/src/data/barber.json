@@ -6,7 +6,7 @@
   "horarios": {
     "semana": "Lunes a Viernes 10:00 a 19:00",
     "sabado": "Sábado 9:00 a 19:00",
-    "nota": "Placeholder configurable: reemplazar por el WhatsApp real y ajustar si cambia la agenda."
+    "nota": "Configuración editable para deploy: reemplazar el WhatsApp comercial y ajustar la disponibilidad real del local."
   },
   "media": {
     "heroDesktop": "/images/hero-desktop.png",
