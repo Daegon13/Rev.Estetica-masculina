@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import MessageTemplatesDemo from "@components/MessageTemplatesDemo.astro";
+import { DEMO_TODAY, DEMO_TODAY_LABEL } from "@config/demo";
 import {
   demoAppointments,
   demoAutomations,
@@ -12,7 +13,7 @@ import {
 
 const title = "Admin Demo — Panel comercial";
 const description = "Panel demo para mostrar agenda, clientes y automatizaciones del sistema a dueños de negocios de estética masculina.";
-const todayLabel = "Lunes 23 mar 2026 · Demo";
+const todayLabel = DEMO_TODAY_LABEL;
 
 const countByStatus = (status: (typeof demoAppointments)[number]["estado"]) =>
   demoAppointments.filter((appointment) => appointment.estado === status).length;
@@ -63,7 +64,7 @@ const statusLabel = {
 } as const;
 
 const reactivationLabel = (lastVisit: string) => {
-  const today = new Date("2026-03-23T00:00:00Z").getTime();
+  const today = new Date(`${DEMO_TODAY}T00:00:00Z`).getTime();
   const visit = new Date(`${lastVisit}T00:00:00Z`).getTime();
   const days = Math.floor((today - visit) / (1000 * 60 * 60 * 24));
 

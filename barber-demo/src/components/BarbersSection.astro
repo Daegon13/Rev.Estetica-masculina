@@ -1,13 +1,8 @@
 ---
-type Barbero = {
-  nombre: string;
-  especialidad: string;
-  foto?: string;
-  alt?: string;
-};
+import type { Professional } from "@types/domain";
 
 type Props = {
-  barberos: Barbero[];
+  barberos: Array<Pick<Professional, "nombre" | "especialidad" | "foto" | "alt">>;
 };
 
 const { barberos } = Astro.props as Props;

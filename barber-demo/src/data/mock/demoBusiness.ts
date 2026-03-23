@@ -1,0 +1,371 @@
+import { demoMessageTemplates } from "@data/mock/messageTemplates";
+import type { Appointment, AutomationRule, Customer, Professional } from "@types/domain";
+
+export const demoProfessionals: Professional[] = 
+[
+  {
+    id: "pro-1",
+    nombre: "Nicolás Correa",
+    especialidad: "Skin fade, crop texturizado y refresh ejecutivo",
+    foto: "/images/barbers/barbero-01-editorial.png",
+    alt: "Nicolás Correa, especialista en cortes modernos masculinos.",
+    servicios: ["corte-masculino", "corte-barba", "servicio-express"],
+    agenda: "Martes a sábado · 10:00 a 19:00"
+  },
+  {
+    id: "pro-2",
+    nombre: "Santiago Pereira",
+    especialidad: "Diseño de barba, toalla caliente y perfilado premium",
+    foto: "/images/barbers/barbero-02-anonimo.png",
+    alt: "Santiago Pereira, barbero enfocado en barba y terminaciones premium.",
+    servicios: ["barba-y-perfilado", "corte-barba", "afeitado-premium", "servicio-express"],
+    agenda: "Lunes a viernes · 11:00 a 20:00"
+  },
+  {
+    id: "pro-3",
+    nombre: "Matías Suárez",
+    especialidad: "Cuidado facial masculino, cejas y packs pre-evento",
+    foto: "/images/barbers/barbero-02-anonimo.png",
+    alt: "Matías Suárez, profesional de estética masculina y tratamientos faciales.",
+    servicios: [
+      "limpieza-facial-masculina",
+      "servicio-express",
+      "corte-masculino",
+      "corte-barba"
+    ],
+    agenda: "Lunes, miércoles, viernes y sábado · 09:00 a 18:00"
+  }
+];
+
+export const demoClients: Customer[] = [
+  {
+    id: "cli-01",
+    nombre: "Tomás Rivas",
+    telefono: "+598 98 214 305",
+    email: "tomas.rivas@gmail.com",
+    barrio: "Pando",
+    birthday: "2026-03-25",
+    ultimaVisita: "2026-03-02",
+    servicioHabitual: "corte-barba",
+    profesionalPreferido: "pro-1",
+    totalVisitas: 9,
+    ticketPromedio: 1210,
+    notas: "Viene cada 3 semanas y prefiere primer turno del día."
+  },
+  {
+    id: "cli-02",
+    nombre: "Bruno Sosa",
+    telefono: "+598 99 560 118",
+    email: "bruno.sosa@outlook.com",
+    barrio: "Barros Blancos",
+    birthday: "2026-04-06",
+    ultimaVisita: "2026-03-18",
+    servicioHabitual: "corte-masculino",
+    profesionalPreferido: "pro-1",
+    totalVisitas: 4,
+    ticketPromedio: 720,
+    notas: "Trae referencia de foto y suele reservar desde Instagram."
+  },
+  {
+    id: "cli-03",
+    nombre: "Nicolás Vega",
+    telefono: "+598 94 331 842",
+    email: "nicolas.vega@correo.com",
+    barrio: "Pinar Norte",
+    birthday: "2026-03-28",
+    ultimaVisita: "2026-02-10",
+    servicioHabitual: "limpieza-facial-masculina",
+    profesionalPreferido: "pro-3",
+    totalVisitas: 3,
+    ticketPromedio: 930,
+    notas: "Pide recordatorio el día anterior porque sale tarde del trabajo."
+  },
+  {
+    id: "cli-04",
+    nombre: "Santiago Acuña",
+    telefono: "+598 92 744 190",
+    email: "sacuna@icloud.com",
+    barrio: "Ciudad de la Costa",
+    birthday: "2026-04-11",
+    ultimaVisita: "2026-03-21",
+    servicioHabitual: "barba-y-perfilado",
+    profesionalPreferido: "pro-2",
+    totalVisitas: 12,
+    ticketPromedio: 610,
+    notas: "Cliente frecuente de barba; recomienda el local a compañeros de oficina."
+  },
+  {
+    id: "cli-05",
+    nombre: "Mateo Serra",
+    telefono: "+598 97 883 612",
+    email: "mateo.serra@gmail.com",
+    barrio: "Lagomar",
+    birthday: "2026-05-09",
+    ultimaVisita: "2026-01-31",
+    servicioHabitual: "corte-masculino",
+    profesionalPreferido: "pro-1",
+    totalVisitas: 5,
+    ticketPromedio: 700,
+    notas: "Se mudó de horario; ideal para campaña win-back con franja nocturna."
+  },
+  {
+    id: "cli-06",
+    nombre: "Valentín Díaz",
+    telefono: "+598 91 402 775",
+    email: "valentin.diaz@gmail.com",
+    barrio: "Solymar",
+    birthday: "2026-03-24",
+    ultimaVisita: "2026-03-05",
+    servicioHabitual: "corte-barba",
+    profesionalPreferido: "pro-2",
+    totalVisitas: 8,
+    ticketPromedio: 1180,
+    notas: "Reserva combo antes de reuniones comerciales importantes."
+  },
+  {
+    id: "cli-07",
+    nombre: "Franco Pereyra",
+    telefono: "+598 95 610 224",
+    email: "franco.p@proton.me",
+    barrio: "Atlántida",
+    birthday: "2026-06-14",
+    ultimaVisita: "2026-03-15",
+    servicioHabitual: "corte-barba",
+    profesionalPreferido: "pro-1",
+    totalVisitas: 6,
+    ticketPromedio: 1200,
+    notas: "Siempre paga seña cuando agenda sábado."
+  },
+  {
+    id: "cli-08",
+    nombre: "Juan Ignacio Paz",
+    telefono: "+598 96 251 904",
+    email: "juanipaz@gmail.com",
+    barrio: "Pando",
+    birthday: "2026-03-30",
+    ultimaVisita: "2026-02-17",
+    servicioHabitual: "servicio-express",
+    profesionalPreferido: "pro-3",
+    totalVisitas: 11,
+    ticketPromedio: 520,
+    notas: "Usa express entre cortes completos; buen candidato a pack mantenimiento."
+  },
+  {
+    id: "cli-09",
+    nombre: "Federico Luna",
+    telefono: "+598 98 772 661",
+    email: "federico.luna@gmail.com",
+    barrio: "Parque del Plata",
+    birthday: "2026-04-02",
+    ultimaVisita: "2026-03-18",
+    servicioHabitual: "corte-masculino",
+    profesionalPreferido: "pro-1",
+    totalVisitas: 7,
+    ticketPromedio: 695,
+    notas: "Suele venir con el hijo; pedirle reseña cuando sale conforme."
+  },
+  {
+    id: "cli-10",
+    nombre: "Ramiro Benítez",
+    telefono: "+598 94 904 112",
+    email: "rami.benitez@outlook.com",
+    barrio: "Empalme Olmos",
+    birthday: "2026-03-23",
+    ultimaVisita: "2026-02-19",
+    servicioHabitual: "barba-y-perfilado",
+    profesionalPreferido: "pro-2",
+    totalVisitas: 10,
+    ticketPromedio: 605,
+    notas: "Cumple hoy; activar beneficio para mover agenda de esta semana."
+  },
+  {
+    id: "cli-11",
+    nombre: "Gonzalo Ferreyra",
+    telefono: "+598 99 118 347",
+    email: "gonzaferreyra@gmail.com",
+    barrio: "La Tahona",
+    birthday: "2026-05-11",
+    ultimaVisita: "2026-02-08",
+    servicioHabitual: "afeitado-premium",
+    profesionalPreferido: "pro-2",
+    totalVisitas: 4,
+    ticketPromedio: 760,
+    notas: "Se engancha bien con campañas premium y slots de viernes tarde."
+  },
+  {
+    id: "cli-12",
+    nombre: "Sebastián Leiva",
+    telefono: "+598 92 888 451",
+    email: "sebaleiva@gmail.com",
+    barrio: "Shangrilá",
+    birthday: "2026-11-29",
+    ultimaVisita: "2026-03-19",
+    servicioHabitual: "corte-masculino",
+    profesionalPreferido: "pro-1",
+    totalVisitas: 14,
+    ticketPromedio: 710,
+    notas: "Cliente estable; buena referencia para demostrar recurrencia."
+  },
+  {
+    id: "cli-13",
+    nombre: "Ignacio Torres",
+    telefono: "+598 91 751 630",
+    email: "ignacio.torres@gmail.com",
+    barrio: "Costa Azul",
+    birthday: "2026-06-16",
+    ultimaVisita: "2026-01-27",
+    servicioHabitual: "corte-barba",
+    profesionalPreferido: "pro-1",
+    totalVisitas: 3,
+    ticketPromedio: 1180,
+    notas: "Hace más de 50 días que no vuelve; ofrecer combo con upgrade."
+  },
+  {
+    id: "cli-14",
+    nombre: "Emiliano Castro",
+    telefono: "+598 95 443 098",
+    email: "emiliano.castro@gmail.com",
+    barrio: "Salinas",
+    birthday: "2026-07-07",
+    ultimaVisita: "2026-03-20",
+    servicioHabitual: "servicio-express",
+    profesionalPreferido: "pro-3",
+    totalVisitas: 5,
+    ticketPromedio: 410,
+    notas: "Compra servicios rápidos al mediodía; responde bien por WhatsApp."
+  },
+  {
+    id: "cli-15",
+    nombre: "Leandro Márquez",
+    telefono: "+598 97 114 552",
+    email: "leandro.marquez@gmail.com",
+    barrio: "El Pinar",
+    birthday: "2026-04-01",
+    ultimaVisita: "2026-02-12",
+    servicioHabitual: "corte-masculino",
+    profesionalPreferido: "pro-3",
+    totalVisitas: 6,
+    ticketPromedio: 690,
+    notas: "Tiene casamiento en abril; útil para sugerir combo y limpieza facial."
+  },
+  {
+    id: "cli-16",
+    nombre: "Rodrigo Machado",
+    telefono: "+598 98 501 776",
+    email: "rodrigo.machado@gmail.com",
+    barrio: "Neptunia",
+    birthday: "2026-03-27",
+    ultimaVisita: "2026-03-11",
+    servicioHabitual: "servicio-express",
+    profesionalPreferido: "pro-2",
+    totalVisitas: 9,
+    ticketPromedio: 505,
+    notas: "Ideal para upsell a barba completa porque ya viene por mantenimiento."
+  },
+  {
+    id: "cli-17",
+    nombre: "Martín Cabrera",
+    telefono: "+598 94 602 991",
+    email: "martin.cabrera@gmail.com",
+    barrio: "Pando",
+    birthday: "2026-04-08",
+    ultimaVisita: "2026-02-14",
+    servicioHabitual: "corte-barba",
+    profesionalPreferido: "pro-1",
+    totalVisitas: 4,
+    ticketPromedio: 1190,
+    notas: "Cliente joven que acepta promos por historia de Instagram y WhatsApp."
+  },
+  {
+    id: "cli-18",
+    nombre: "Diego Perdomo",
+    telefono: "+598 92 413 220",
+    email: "diego.perdomo@gmail.com",
+    barrio: "Ciudad de la Costa",
+    birthday: "2026-04-04",
+    ultimaVisita: "2026-02-05",
+    servicioHabitual: "limpieza-facial-masculina",
+    profesionalPreferido: "pro-3",
+    totalVisitas: 2,
+    ticketPromedio: 910,
+    notas: "Hace home office; funciona mejor ofrecerle turnos entre semana temprano."
+  }
+];
+
+export const demoAppointments: Appointment[] = [
+  { id: "apt-01", fecha: "2026-03-23", hora: "09:00", clienteId: "cli-01", servicioId: "corte-barba", profesionalId: "pro-1", estado: "confirmado", canal: "web" },
+  { id: "apt-02", fecha: "2026-03-23", hora: "09:45", clienteId: "cli-02", servicioId: "corte-masculino", profesionalId: "pro-1", estado: "confirmado", canal: "instagram" },
+  { id: "apt-03", fecha: "2026-03-23", hora: "10:30", clienteId: "cli-03", servicioId: "limpieza-facial-masculina", profesionalId: "pro-3", estado: "pendiente", canal: "whatsapp" },
+  { id: "apt-04", fecha: "2026-03-23", hora: "11:15", clienteId: "cli-04", servicioId: "barba-y-perfilado", profesionalId: "pro-2", estado: "completado", canal: "recepcion", nota: "Llegó 10 minutos antes." },
+  { id: "apt-05", fecha: "2026-03-23", hora: "12:00", clienteId: "cli-05", servicioId: "corte-masculino", profesionalId: "pro-1", estado: "cancelado", canal: "whatsapp", nota: "Reagendar para jueves tarde." },
+  { id: "apt-06", fecha: "2026-03-23", hora: "12:45", clienteId: "cli-06", servicioId: "corte-barba", profesionalId: "pro-2", estado: "confirmado", canal: "web" },
+  { id: "apt-07", fecha: "2026-03-23", hora: "15:00", clienteId: "cli-07", servicioId: "corte-barba", profesionalId: "pro-1", estado: "confirmado", canal: "web", nota: "Seña paga." },
+  { id: "apt-08", fecha: "2026-03-23", hora: "15:45", clienteId: "cli-08", servicioId: "servicio-express", profesionalId: "pro-3", estado: "pendiente", canal: "whatsapp" },
+  { id: "apt-09", fecha: "2026-03-23", hora: "16:30", clienteId: "cli-09", servicioId: "corte-masculino", profesionalId: "pro-1", estado: "completado", canal: "instagram" },
+  { id: "apt-10", fecha: "2026-03-23", hora: "17:15", clienteId: "cli-10", servicioId: "barba-y-perfilado", profesionalId: "pro-2", estado: "confirmado", canal: "whatsapp", nota: "Activar saludo de cumpleaños." },
+  { id: "apt-11", fecha: "2026-03-23", hora: "18:00", clienteId: "cli-11", servicioId: "afeitado-premium", profesionalId: "pro-2", estado: "pendiente", canal: "web" },
+  { id: "apt-12", fecha: "2026-03-23", hora: "18:45", clienteId: "cli-12", servicioId: "corte-masculino", profesionalId: "pro-1", estado: "confirmado", canal: "recepcion" }
+];
+
+export const demoAutomations: AutomationRule[] = [
+  {
+    id: "auto-01",
+    nombre: "Confirmación instantánea",
+    objetivo: "Bajar dudas post-reserva y consolidar la agenda del día.",
+    disparador: "Al entrar una nueva reserva web o por WhatsApp",
+    audiencia: "Todos los clientes con cita creada",
+    canal: "WhatsApp",
+    estado: "activa",
+    proximosEnvios: 12,
+    impacto: "8 de las 12 citas de hoy ya quedaron reconfirmadas sin gestión manual.",
+    templateId: demoMessageTemplates[0].id
+  },
+  {
+    id: "auto-02",
+    nombre: "Recordatorio 24 horas antes",
+    objetivo: "Reducir ausencias y liberar huecos con tiempo para revenderlos.",
+    disparador: "24 horas antes del turno confirmado",
+    audiencia: "Clientes con visita para mañana",
+    canal: "WhatsApp + Email",
+    estado: "activa",
+    proximosEnvios: 9,
+    impacto: "La demo proyecta 6% de ausentismo con agenda casi llena.",
+    templateId: demoMessageTemplates[1].id
+  },
+  {
+    id: "auto-03",
+    nombre: "Pedido de reseña post-visita",
+    objetivo: "Sumar prueba social local después de cada experiencia bien resuelta.",
+    disparador: "2 horas después de marcar una cita como completada",
+    audiencia: "Clientes atendidos hoy",
+    canal: "WhatsApp",
+    estado: "activa",
+    proximosEnvios: 2,
+    impacto: "Ideal para clientes frecuentes como Sebastián Leiva o Federico Luna.",
+    templateId: demoMessageTemplates[2].id
+  },
+  {
+    id: "auto-04",
+    nombre: "Cumpleaños con beneficio",
+    objetivo: "Mover agenda de la semana con una excusa emocional y fácil de vender.",
+    disparador: "A las 10:00 del día del cumpleaños",
+    audiencia: "4 clientes con cumpleaños entre hoy y el 6 de abril",
+    canal: "WhatsApp",
+    estado: "programada",
+    proximosEnvios: 4,
+    impacto: "Hoy ya puede activarse con Ramiro Benítez y esta semana con Tomás y Rodrigo.",
+    templateId: demoMessageTemplates[3].id
+  },
+  {
+    id: "auto-05",
+    nombre: "Reactivación 30+ días",
+    objetivo: "Recuperar clientes dormidos con una oferta suave y seguimiento automático.",
+    disparador: "Cuando pasan 30 días sin visita ni nueva reserva",
+    audiencia: "7 clientes inactivos en la base demo",
+    canal: "WhatsApp",
+    estado: "activa",
+    proximosEnvios: 7,
+    impacto: "Hay oportunidades claras en Mateo, Ignacio, Diego y Gonzalo.",
+    templateId: demoMessageTemplates[4].id
+  }
+];

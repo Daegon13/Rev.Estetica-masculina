@@ -4,6 +4,9 @@ import { demoMessageTemplates, demoTemplateVariables } from "@data/messageTempla
 const templates = demoMessageTemplates;
 const variables = demoTemplateVariables;
 const initialTemplate = templates[0];
+const activeTemplatesCount = templates.filter((template) => template.active).length;
+const supportedVariablesCount = Object.keys(variables).length;
+const supportedChannels = [...new Set(templates.map((template) => template.channel))].join(" · ");
 ---
 
 <section class="rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-soft sm:p-6" data-message-templates-root>
@@ -21,15 +24,15 @@ const initialTemplate = templates[0];
     <div class="grid min-w-[220px] gap-3 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm">
       <div class="flex items-center justify-between gap-4">
         <span class="text-zinc-400">Plantillas activas</span>
-        <strong class="text-zinc-50">4 / 5</strong>
+        <strong class="text-zinc-50">{activeTemplatesCount} / {templates.length}</strong>
       </div>
       <div class="flex items-center justify-between gap-4">
         <span class="text-zinc-400">Variables soportadas</span>
-        <strong class="text-zinc-50">4</strong>
+        <strong class="text-zinc-50">{supportedVariablesCount}</strong>
       </div>
       <div class="flex items-center justify-between gap-4">
         <span class="text-zinc-400">Canales futuros</span>
-        <strong class="text-zinc-50">WA · Email</strong>
+        <strong class="text-zinc-50">{supportedChannels}</strong>
       </div>
     </div>
   </div>
