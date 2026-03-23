@@ -7,6 +7,7 @@ import BarbersSection from "../components/BarbersSection.astro";
 import ServiceCard from "@components/ServiceCard.astro";
 import Testimonials from "@components/Testimonials.astro";
 import barber from "@data/barber.json";
+import { demoServices } from "@data/services";
 import { buildWhatsAppLink } from "@lib/whatsapp";
 
 const ctaPrimary = buildWhatsAppLink(
@@ -16,9 +17,9 @@ const ctaPrimary = buildWhatsAppLink(
 const data = barber as unknown as BarberData;
 
 const featured =
-  (barber.servicios?.filter((s) => s.popular) ?? []).slice(0, 4).length > 0
-    ? barber.servicios.filter((s) => s.popular).slice(0, 4)
-    : (barber.servicios ?? []).slice(0, 4);
+  demoServices.filter((s) => s.popular).slice(0, 4).length > 0
+    ? demoServices.filter((s) => s.popular).slice(0, 4)
+    : demoServices.slice(0, 4);
 
 const title = `${data.nombre} — Estética masculina premium`;
 const description = `Cuidado masculino integral, reserva online y experiencia profesional en ${data.ciudad}.`;
@@ -28,7 +29,7 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
 
   <Section
     title="Servicios destacados"
-    subtitle="Sesiones diseñadas para mantener una presencia cuidada, con duración estimada y reserva inmediata."
+    subtitle="Servicios demo de estética masculina integral con foco en imagen, cuidado facial y mantenimiento premium."
   >
     <div class="grid gap-4 md:grid-cols-2">
       {featured.map((s) => (

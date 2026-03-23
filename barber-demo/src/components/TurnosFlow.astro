@@ -1,9 +1,10 @@
 ---
 import barber from "@data/barber.json";
+import { demoServices } from "@data/services";
 import { formatUYU } from "@lib/whatsapp";
 import scriptUrl from "@scripts/turnos.ts?url";
 
-const servicios = barber.servicios;
+const servicios = demoServices;
 const brand = barber.nombre;
 const whatsapp = barber.whatsapp;
 const url = new URL(Astro.request.url);
