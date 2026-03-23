@@ -10,9 +10,13 @@ import barber from "@data/barber.json";
 import { demoServices } from "@data/services";
 import { buildWhatsAppLink } from "@lib/whatsapp";
 
-const ctaPrimary = buildWhatsAppLink(
+const ctaBusiness = buildWhatsAppLink(
   barber.whatsapp,
-  `Hola, quiero reservar una experiencia en ${barber.nombre}. ¿Qué disponibilidad tienen?`
+  `Hola, quiero esta demo para mi negocio. Quiero ver cómo aplicar el sistema en ${barber.nombre}.`
+);
+const ctaWhatsApp = buildWhatsAppLink(
+  barber.whatsapp,
+  `Hola, quiero hablar por WhatsApp para implementar esta demo en mi negocio.`
 );
 const data = barber as unknown as BarberData;
 
@@ -158,19 +162,39 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
     <Testimonials items={barber.testimonios} />
   </Section>
 
-  <section class="mt-6 rounded-3xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-6 shadow-soft sm:p-8">
-    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+  <section class="mt-6 overflow-hidden rounded-[2rem] border border-[#c8a27c]/20 bg-[radial-gradient(circle_at_top_left,rgba(200,162,124,0.22),transparent_38%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 shadow-soft sm:p-8 lg:p-10">
+    <div class="grid gap-8 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
       <div>
-        <div class="text-xl font-semibold text-zinc-50">Reservá tu próxima experiencia</div>
-        <div class="mt-2 text-sm text-zinc-400">Coordiná online, resolvé tu turno por WhatsApp y mantené tu imagen personal con una atención profesional.</div>
+        <div class="inline-flex rounded-full border border-[#c8a27c]/30 bg-[#c8a27c]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#e7c7a3]">
+          Cierre comercial listo para presentar
+        </div>
+        <h2 class="mt-4 max-w-3xl text-3xl font-semibold leading-tight text-zinc-50 sm:text-4xl">
+          Menos ausencias. Más orden. Más clientes que vuelven.
+        </h2>
+        <p class="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">
+          Mostrale al dueño que puede resolver agenda online, recordatorios, confirmaciones y seguimiento comercial desde un mismo sistema premium, en vez de pagar varias herramientas separadas y perder tiempo coordinando todo a mano.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-100">Una sola demo para vender reserva, orden y recurrencia</div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-100">Menos apps sueltas, menos costo operativo</div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-100">Presentación clara para leads premium desde mañana</div>
+        </div>
       </div>
-      <div class="flex gap-2">
-        <a href="/turnos" class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm font-semibold text-zinc-100 transition hover:bg-white/10">
-          Elegir horario
-        </a>
-        <a href={ctaPrimary} target="_blank" rel="noreferrer" class="rounded-2xl border border-[#c8a27c]/35 bg-[#c8a27c]/14 px-5 py-4 text-sm font-semibold text-stone-100 transition hover:bg-[#c8a27c]/22">
-          Reservar por WhatsApp
-        </a>
+
+      <div class="rounded-[1.75rem] border border-white/10 bg-black/20 p-5 sm:p-6">
+        <div class="text-xs uppercase tracking-[0.22em] text-[#e7c7a3]">Próximo paso</div>
+        <div class="mt-3 text-2xl font-semibold text-zinc-50">Convertí el demo en una propuesta concreta para barberías y centros de estética masculina.</div>
+        <p class="mt-3 text-sm leading-6 text-zinc-400">
+          Ideal para mostrar ahorro, profesionalismo y una operación más predecible sin sacrificar la percepción premium de la marca.
+        </p>
+        <div class="mt-6 flex flex-col gap-3">
+          <a href={ctaBusiness} target="_blank" rel="noreferrer" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#c8a27c]/35 bg-[#c8a27c]/18 px-5 py-4 text-sm font-semibold text-stone-100 transition hover:bg-[#c8a27c]/28">
+            Quiero esta demo para mi negocio
+          </a>
+          <a href={ctaWhatsApp} target="_blank" rel="noreferrer" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm font-semibold text-zinc-100 transition hover:bg-white/10">
+            Hablar por WhatsApp
+          </a>
+        </div>
       </div>
     </div>
   </section>
