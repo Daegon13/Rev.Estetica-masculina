@@ -12,11 +12,11 @@ import { buildWhatsAppLink } from "@lib/whatsapp";
 
 const ctaBusiness = buildWhatsAppLink(
   barber.whatsapp,
-  `Hola, quiero esta demo para mi negocio. Quiero ver cómo aplicar el sistema en ${barber.nombre}.`
+  `Hola, quiero reservar una experiencia en ${barber.nombre}. ¿Me comparten la disponibilidad?`
 );
 const ctaWhatsApp = buildWhatsAppLink(
   barber.whatsapp,
-  `Hola, quiero hablar por WhatsApp para implementar esta demo en mi negocio.`
+  `Hola, quiero asesoramiento sobre servicios y turnos en ${barber.nombre}.`
 );
 const data = barber as unknown as BarberData;
 
@@ -60,7 +60,7 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
 
   <Section
     title="Servicios destacados"
-    subtitle="Una selección curada para que la propuesta se vea clara, premium y lista para vender desde la primera mirada."
+    subtitle="Una selección curada para presentar corte, barba y cuidado facial con una imagen sólida, actual y profesional."
   >
     <div class="grid gap-4 md:grid-cols-2">
       {featured.map((s) => (
@@ -72,7 +72,7 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
   <Section
     id="como-funciona"
     title="Cómo funciona el sistema de agenda"
-    subtitle="Una narrativa simple para que el lead entienda en segundos cómo conviven branding, operación y seguimiento comercial."
+    subtitle="Una experiencia simple para que reservar se sienta rápido, prolijo y alineado con una marca de estética masculina contemporánea."
   >
     <div class="grid gap-4 md:grid-cols-3">
       {[
@@ -90,24 +90,24 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
 
   <Section
     id="negocio"
-    title="Más que turnos: un sistema para hacer crecer el negocio"
-    subtitle="Pensado para que el dueño del local venda mejor, ordene la agenda y tenga más clientes volviendo sin depender todo el tiempo del celular."
+    title="Más que un turno: una experiencia integral de cuidado masculino"
+    subtitle="Pensado para clientes que buscan verse bien, ahorrar tiempo y mantener una rutina de cuidado con atención consistente."
   >
     <div class="grid gap-4 lg:grid-cols-[1.1fr_.9fr]">
       <div class="rounded-[2rem] border border-[#c8a27c]/20 bg-[linear-gradient(180deg,rgba(200,162,124,0.16),rgba(255,255,255,0.03))] p-6 shadow-soft sm:p-7">
         <div class="inline-flex rounded-full border border-[#c8a27c]/30 bg-[#c8a27c]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#e7c7a3]">
-          Demo comercial
+          Experiencia profesional
         </div>
         <h3 class="mt-4 max-w-xl text-2xl font-semibold leading-tight text-zinc-50 sm:text-3xl">
-          Mostrale al dueño cómo pasa de apagar incendios a tener una agenda que vende todos los días.
+          Una atención que combina imagen, asesoría y una reserva simple para sostener una presencia impecable.
         </h3>
         <p class="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">
-          Esta sección está pensada para cerrar el demo: no se trata solo de tomar reservas, sino de darle al local una forma más prolija de llenar horarios, confirmar asistencia, generar confianza y recuperar clientes dormidos.
+          Desde el primer contacto, el cliente encuentra servicios bien definidos, horarios claros y una comunicación directa para resolver su visita sin fricción.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-200">Menos huecos en la agenda</div>
-          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-200">Más orden sin sumar personal</div>
-          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-200">Más recurrencia y recomendación</div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-200">Cortes, barba y cuidado facial en un mismo lugar</div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-200">Asesoría personalizada según estilo y rutina</div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-200">Reserva ágil con seguimiento por WhatsApp</div>
         </div>
       </div>
 
@@ -157,7 +157,7 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
 
   <Section
     title="Testimonios"
-    subtitle="Prueba social breve, creíble y visualmente consistente para reforzar confianza en el demo."
+    subtitle="Opiniones reales que refuerzan la propuesta de valor y la calidad percibida del servicio."
   >
     <Testimonials items={barber.testimonios} />
   </Section>
@@ -172,24 +172,24 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
           Menos ausencias. Más orden. Más clientes que vuelven.
         </h2>
         <p class="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">
-          Mostrale al dueño que puede resolver agenda online, recordatorios, confirmaciones y seguimiento comercial desde un mismo sistema premium, en vez de pagar varias herramientas separadas y perder tiempo coordinando todo a mano.
+          Reservá tu próximo servicio con una experiencia cuidada de punta a punta: agenda simple, atención puntual y contacto directo para resolver cualquier detalle antes de venir.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-100">Una sola demo para vender reserva, orden y recurrencia</div>
-          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-100">Menos apps sueltas, menos costo operativo</div>
-          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-100">Presentación clara para leads premium desde mañana</div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-100">Reserva online en pocos pasos</div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-100">Atención profesional y personalizada</div>
+          <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-100">Seguimiento directo por WhatsApp</div>
         </div>
       </div>
 
       <div class="rounded-[1.75rem] border border-white/10 bg-black/20 p-5 sm:p-6">
         <div class="text-xs uppercase tracking-[0.22em] text-[#e7c7a3]">Próximo paso</div>
-        <div class="mt-3 text-2xl font-semibold text-zinc-50">Convertí el demo en una propuesta concreta para barberías y centros de estética masculina.</div>
+        <div class="mt-3 text-2xl font-semibold text-zinc-50">Coordiná tu próxima visita y elevá tu imagen con atención profesional.</div>
         <p class="mt-3 text-sm leading-6 text-zinc-400">
-          Ideal para mostrar ahorro, profesionalismo y una operación más predecible sin sacrificar la percepción premium de la marca.
+          Elegí el servicio que necesitás, reservá tu horario y resolvé cualquier consulta previa directamente con el equipo.
         </p>
         <div class="mt-6 flex flex-col gap-3">
           <a href={ctaBusiness} target="_blank" rel="noreferrer" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#c8a27c]/35 bg-[#c8a27c]/18 px-5 py-4 text-sm font-semibold text-stone-100 transition hover:bg-[#c8a27c]/28">
-            Quiero esta demo para mi negocio
+            Reservar por WhatsApp
           </a>
           <a href={ctaWhatsApp} target="_blank" rel="noreferrer" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm font-semibold text-zinc-100 transition hover:bg-white/10">
             Hablar por WhatsApp
@@ -203,7 +203,7 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
     <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
       <div>
         <h2 class="text-2xl font-semibold text-zinc-50">Ubicación y horarios</h2>
-        <p class="mt-2 max-w-2xl text-sm text-zinc-400">Datos configurables para deploy: dirección, WhatsApp comercial y disponibilidad semanal listos para actualizar sin tocar la estructura.</p>
+        <p class="mt-2 max-w-2xl text-sm text-zinc-400">Encontranos fácilmente, consultá los horarios de atención y coordiná tu próxima visita con el estudio.</p>
       </div>
       <a href="/ubicacion" class="text-sm font-semibold text-stone-200 transition hover:text-stone-100">Ver detalle completo</a>
     </div>
@@ -212,7 +212,7 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
       <div class="overflow-hidden rounded-2xl border border-stone-200/10 bg-white/5 shadow-soft">
         <img
           src={barber.media.location}
-          alt="Fachada del estudio"
+          alt="Fachada de Revolución Estética Masculina"
           class="h-[260px] w-full object-cover md:h-[360px]"
           loading="lazy"
           decoding="async"

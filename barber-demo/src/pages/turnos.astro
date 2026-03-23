@@ -4,7 +4,7 @@ import barber from "@data/barber.json";
 import TurnosFlow from "@components/TurnosFlow.astro";
 
 const title = `Turnos — ${barber.nombre}`;
-const description = "Elegí servicio, día y hora. Reservá online y confirmá por WhatsApp.";
+const description = `Elegí servicio, día y hora en ${barber.nombre}. Reservá online y confirmá tu visita por WhatsApp.`;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -17,7 +17,7 @@ const description = "Elegí servicio, día y hora. Reservá online y confirmá p
       <aside class="overflow-hidden rounded-2xl border border-stone-200/10 bg-white/5 shadow-soft">
         <img
           src={barber.media.turnos}
-          alt="Reserva online desde el celular"
+          alt="Agenda online de Revolución Estética Masculina desde el celular"
           class="h-full w-full object-cover"
           loading="lazy"
           decoding="async"

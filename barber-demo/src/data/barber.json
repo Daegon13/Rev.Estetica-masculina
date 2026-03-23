@@ -1,12 +1,12 @@
 {
   "nombre": "Revolución Estética Masculina",
   "ciudad": "Montevideo",
-  "direccion": "Ruta 8 km 26.500",
-  "whatsapp": "59800000000",
+  "direccion": "Av. Italia 4279, Local 3",
+  "whatsapp": "59891234567",
   "horarios": {
-    "semana": "Lunes a Viernes 10:00 a 19:00",
-    "sabado": "Sábado 9:00 a 19:00",
-    "nota": "Configuración editable para deploy: reemplazar el WhatsApp comercial y ajustar la disponibilidad real del local."
+    "semana": "Lunes a Viernes · 09:30 a 20:00",
+    "sabado": "Sábado · 10:00 a 18:00",
+    "nota": "Atención con agenda previa. Confirmá tu horario por WhatsApp si necesitás un turno fuera de franja."
   },
   "media": {
     "heroDesktop": "/images/hero-desktop.png",
