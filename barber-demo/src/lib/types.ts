@@ -3,21 +3,19 @@ export type Horario = {
   horas: string;
 };
 
-export type Servicio = {
-  id: string;
-  nombre: string;
-  precio: number;
-  duracion: number;
-  descripcion: string;
-  popular: boolean;
-  imagen?: string; // ruta en /public
-  alt?: string;    // alt accesible
-};
+export type {
+  Service as Servicio,
+  Professional as Professional,
+  Customer,
+  Appointment,
+  AutomationRule,
+  MessageTemplate
+} from "@types/domain";
 
 export type Barbero = {
   nombre: string;
   especialidad: string;
-  foto?: string; // ruta en /public
+  foto?: string;
   alt?: string;
 };
 
@@ -39,7 +37,7 @@ export type BarberData = {
   direccion: string;
   whatsapp: string;
   horarios: Horario[];
-  servicios: Servicio[];
+  servicios: import("@types/domain").Service[];
   barberos: Barbero[];
   testimonios: Testimonio[];
   galeria: GalleryItem[];

@@ -1,6 +1,9 @@
+import type { Professional } from "@types/domain";
 import { demoProfessionals } from "@data/demoBusiness";
 
-export const bookingProfessionals = demoProfessionals.map((professional) => ({
+export type BookingProfessional = Pick<Professional, "id" | "nombre" | "especialidad" | "foto" | "alt" | "servicios">;
+
+export const bookingProfessionals: BookingProfessional[] = demoProfessionals.map((professional) => ({
   id: professional.id,
   nombre: professional.nombre,
   especialidad: professional.especialidad,
