@@ -1,68 +1,79 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import MessageTemplatesDemo from "@components/MessageTemplatesDemo.astro";
+import {
+  demoAppointments,
+  demoAutomations,
+  demoClients,
+  demoDashboardAppointments,
+  inactiveClients,
+  upcomingBirthdays
+} from "@data/demoBusiness";
 
 const title = "Admin Demo — Panel comercial";
 const description = "Panel demo para mostrar agenda, clientes y automatizaciones del sistema a dueños de negocios de estética masculina.";
+const todayLabel = "Lunes 23 mar 2026 · Demo";
+
+const countByStatus = (status: (typeof demoAppointments)[number]["estado"]) =>
+  demoAppointments.filter((appointment) => appointment.estado === status).length;
 
 const summaryCards = [
   {
-    label: "Turnos de hoy",
-    value: "18",
-    trend: "+4 vs. ayer",
-    detail: "87% confirmados · 2 por reprogramar",
+    label: "Turnos cargados hoy",
+    value: String(demoAppointments.length),
+    trend: `${countByStatus("confirmado")} confirmados · ${countByStatus("pendiente")} pendientes`,
+    detail: `${countByStatus("completado")} completados · ${countByStatus("cancelado")} cancelado para recuperar`,
     tone: "from-emerald-400/20 via-emerald-300/8 to-transparent"
   },
   {
-    label: "Clientes del mes",
-    value: "126",
-    trend: "+18% mensual",
-    detail: "32 nuevos · ticket promedio ARS 24.500",
+    label: "Clientes en la base demo",
+    value: String(demoClients.length),
+    trend: `${upcomingBirthdays.length} cumpleaños próximos`,
+    detail: `${inactiveClients.length} sin visita hace más de 30 días`,
     tone: "from-sky-400/20 via-sky-300/8 to-transparent"
   },
   {
-    label: "Recordatorios programados",
-    value: "41",
-    trend: "24 para hoy",
-    detail: "WhatsApp + email automatizados",
+    label: "Automatizaciones listas",
+    value: String(demoAutomations.length),
+    trend: `${demoAutomations.filter((automation) => automation.estado === "activa").length} activas ahora`,
+    detail: `${demoAutomations.reduce((total, automation) => total + automation.proximosEnvios, 0)} envíos proyectados`,
     tone: "from-amber-300/20 via-amber-200/8 to-transparent"
   },
   {
-    label: "Campañas automáticas activas",
-    value: "5",
-    trend: "2 reactivación · 3 cumpleaños",
-    detail: "ROI estimado 6.4x esta semana",
+    label: "Oportunidad comercial",
+    value: `UYU ${inactiveClients.reduce((total, client) => total + client.ticketPromedio, 0).toLocaleString("es-UY")}`,
+    trend: "Win-back + cumpleaños esta semana",
+    detail: "El demo conecta agenda, CRM y mensajería con casos reales de venta.",
     tone: "from-fuchsia-400/20 via-fuchsia-300/8 to-transparent"
   }
 ];
 
-const agenda = [
-  { time: "09:00", client: "Tomás Rivas", service: "Corte premium + cejas", professional: "Lucas M.", status: "Confirmado" },
-  { time: "09:45", client: "Bruno Sosa", service: "Skin fade + barba", professional: "Facundo P.", status: "En sala" },
-  { time: "10:30", client: "Nicolás Vega", service: "Limpieza facial express", professional: "Agustín R.", status: "Pendiente" },
-  { time: "11:15", client: "Santiago Acuña", service: "Barba con toalla caliente", professional: "Lucas M.", status: "Confirmado" },
-  { time: "12:00", client: "Mateo Serra", service: "Corte ejecutivo", professional: "Facundo P.", status: "Reprogramar" },
-  { time: "12:45", client: "Valentín Díaz", service: "Combo imagen mensual", professional: "Agustín R.", status: "Confirmado" },
-  { time: "15:00", client: "Franco Pereyra", service: "Color + perfilado", professional: "Lucas M.", status: "Seña paga" },
-  { time: "16:30", client: "Juan Ignacio Paz", service: "Corte clásico", professional: "Facundo P.", status: "Pendiente" }
-];
-
-const clients = [
-  { name: "Federico Luna", phone: "+54 9 11 6123 4455", lastVisit: "18 mar 2026", birthday: "04 abr", reactivation: "Activo en campañas" },
-  { name: "Ramiro Benítez", phone: "+54 9 11 4988 1122", lastVisit: "02 mar 2026", birthday: "22 mar", reactivation: "Enviar promo hoy" },
-  { name: "Gonzalo Ferreyra", phone: "+54 9 11 5550 9801", lastVisit: "14 feb 2026", birthday: "11 may", reactivation: "Dormido 38 días" },
-  { name: "Sebastián Leiva", phone: "+54 9 11 6012 0011", lastVisit: "19 mar 2026", birthday: "29 nov", reactivation: "Cliente frecuente" },
-  { name: "Ignacio Torres", phone: "+54 9 11 4771 6620", lastVisit: "27 ene 2026", birthday: "16 jun", reactivation: "Campaña win-back" },
-  { name: "Emiliano Castro", phone: "+54 9 11 5883 9021", lastVisit: "20 mar 2026", birthday: "07 jul", reactivation: "Sin acción pendiente" }
-];
-
 const statusStyles = {
-  Confirmado: "bg-emerald-400/15 text-emerald-200 border-emerald-300/20",
-  "En sala": "bg-sky-400/15 text-sky-200 border-sky-300/20",
-  Pendiente: "bg-amber-400/15 text-amber-100 border-amber-300/20",
-  Reprogramar: "bg-rose-400/15 text-rose-200 border-rose-300/20",
-  "Seña paga": "bg-violet-400/15 text-violet-200 border-violet-300/20"
+  confirmado: "bg-emerald-400/15 text-emerald-200 border-emerald-300/20",
+  pendiente: "bg-amber-400/15 text-amber-100 border-amber-300/20",
+  completado: "bg-sky-400/15 text-sky-200 border-sky-300/20",
+  cancelado: "bg-rose-400/15 text-rose-200 border-rose-300/20"
 } as const;
+
+const statusLabel = {
+  confirmado: "Confirmado",
+  pendiente: "Pendiente",
+  completado: "Completado",
+  cancelado: "Cancelado"
+} as const;
+
+const reactivationLabel = (lastVisit: string) => {
+  const today = new Date("2026-03-23T00:00:00Z").getTime();
+  const visit = new Date(`${lastVisit}T00:00:00Z`).getTime();
+  const days = Math.floor((today - visit) / (1000 * 60 * 60 * 24));
+
+  if (days > 30) return `Dormido ${days} días · activar win-back`;
+  if (days <= 7) return "Activo reciente · pedir reseña";
+  return "Seguimiento liviano · recordar próxima visita";
+};
+
+const fmtDate = (date: string, options: Intl.DateTimeFormatOptions) =>
+  new Intl.DateTimeFormat("es-UY", { timeZone: "UTC", ...options }).format(new Date(`${date}T00:00:00Z`));
 ---
 
 <BaseLayout title={title} description={description}>
@@ -74,25 +85,25 @@ const statusStyles = {
             Demo comercial
           </div>
           <h1 class="mt-4 text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
-            Panel listo para mostrar cómo el sistema ordena la operación y aumenta la recurrencia.
+            Panel con datos demo creíbles para mostrar operación, agenda y recurrencia sin depender de datos reales.
           </h1>
           <p class="mt-4 max-w-2xl text-sm leading-6 text-zinc-400 sm:text-base">
-            Esta vista demo combina agenda diaria, automatizaciones y seguimiento de clientes para que el dueño vea valor de negocio en segundos, incluso antes de conectar datos reales.
+            La demo de Rev. Estética Masculina aterriza servicios, profesionales, clientes y automatizaciones en un negocio local de Montevideo para que el lead entienda rápido cómo se vería su día a día usando el sistema.
           </p>
         </div>
 
-        <div class="grid gap-3 rounded-3xl border border-white/10 bg-black/20 p-4 text-sm text-zinc-300 sm:min-w-[300px]">
+        <div class="grid gap-3 rounded-3xl border border-white/10 bg-black/20 p-4 text-sm text-zinc-300 sm:min-w-[320px]">
           <div class="flex items-center justify-between gap-4">
             <span>Ocupación estimada de hoy</span>
-            <strong class="text-zinc-50">78%</strong>
+            <strong class="text-zinc-50">83%</strong>
           </div>
           <div class="flex items-center justify-between gap-4">
-            <span>Ausentismo proyectado</span>
-            <strong class="text-zinc-50">6%</strong>
+            <span>Próximos cumpleaños</span>
+            <strong class="text-zinc-50">{upcomingBirthdays.length}</strong>
           </div>
           <div class="flex items-center justify-between gap-4">
-            <span>Ingresos del día</span>
-            <strong class="text-zinc-50">ARS 438.000</strong>
+            <span>Clientes a reactivar</span>
+            <strong class="text-zinc-50">{inactiveClients.length}</strong>
           </div>
         </div>
       </div>
@@ -103,7 +114,7 @@ const statusStyles = {
         <article class={`overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br ${card.tone} p-5 shadow-soft`}>
           <div class="text-sm text-zinc-400">{card.label}</div>
           <div class="mt-3 flex items-end justify-between gap-4">
-            <strong class="text-4xl font-semibold text-zinc-50">{card.value}</strong>
+            <strong class="text-3xl font-semibold text-zinc-50 sm:text-4xl">{card.value}</strong>
             <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-200">{card.trend}</span>
           </div>
           <p class="mt-4 text-sm text-zinc-300">{card.detail}</p>
@@ -116,9 +127,9 @@ const statusStyles = {
         <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 class="text-xl font-semibold text-zinc-50">Agenda del día</h2>
-            <p class="mt-1 text-sm text-zinc-400">Turnos confirmados, pendientes y clientes ya presentes en el local.</p>
+            <p class="mt-1 text-sm text-zinc-400">12 citas demo con estados variados para mostrar seguimiento real de agenda y atención.</p>
           </div>
-          <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Lunes 23 mar · Demo</div>
+          <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">{todayLabel}</div>
         </div>
 
         <div class="mt-5 overflow-hidden rounded-2xl border border-white/10">
@@ -133,15 +144,15 @@ const statusStyles = {
               </tr>
             </thead>
             <tbody class="divide-y divide-white/5">
-              {agenda.map((item) => (
+              {demoDashboardAppointments.map((item) => (
                 <tr class="bg-transparent transition hover:bg-white/[0.03]">
-                  <td class="px-4 py-3 font-medium text-zinc-100">{item.time}</td>
-                  <td class="px-4 py-3 text-zinc-200">{item.client}</td>
-                  <td class="px-4 py-3 text-zinc-300">{item.service}</td>
-                  <td class="px-4 py-3 text-zinc-300">{item.professional}</td>
+                  <td class="px-4 py-3 font-medium text-zinc-100">{item.hora}</td>
+                  <td class="px-4 py-3 text-zinc-200">{item.cliente?.nombre}</td>
+                  <td class="px-4 py-3 text-zinc-300">{item.servicio?.nombre}</td>
+                  <td class="px-4 py-3 text-zinc-300">{item.profesional?.nombre}</td>
                   <td class="px-4 py-3">
-                    <span class={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${statusStyles[item.status]}`}>
-                      {item.status}
+                    <span class={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${statusStyles[item.estado]}`}>
+                      {statusLabel[item.estado]}
                     </span>
                   </td>
                 </tr>
@@ -155,20 +166,27 @@ const statusStyles = {
         <MessageTemplatesDemo />
 
         <section class="rounded-3xl border border-white/10 bg-gradient-to-br from-[#c8a27c]/14 via-white/[0.03] to-white/[0.02] p-5 shadow-soft sm:p-6">
-          <div class="text-sm text-zinc-300">Próxima oportunidad sugerida</div>
-          <div class="mt-3 text-2xl font-semibold text-zinc-50">Recuperar 11 clientes inactivos</div>
-          <p class="mt-3 text-sm leading-6 text-zinc-300">
-            El panel identifica clientes con más de 30 días sin visitar y propone una campaña con mensaje, beneficio y seguimiento automático.
-          </p>
-          <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
-            <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <div class="text-zinc-400">Valor estimado</div>
-              <div class="mt-1 font-semibold text-zinc-50">ARS 198.000</div>
-            </div>
-            <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <div class="text-zinc-400">Tiempo de activación</div>
-              <div class="mt-1 font-semibold text-zinc-50">5 min</div>
-            </div>
+          <div class="text-sm text-zinc-300">Automatizaciones recomendadas</div>
+          <div class="mt-3 space-y-3">
+            {demoAutomations.map((automation) => (
+              <article class="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 class="font-semibold text-zinc-50">{automation.nombre}</h3>
+                    <p class="mt-1 text-sm text-zinc-400">{automation.objetivo}</p>
+                  </div>
+                  <span class={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${automation.estado === "activa" ? "border-emerald-300/20 bg-emerald-400/10 text-emerald-200" : "border-amber-300/20 bg-amber-400/10 text-amber-100"}`}>
+                    {automation.estado}
+                  </span>
+                </div>
+                <div class="mt-3 grid gap-2 text-sm text-zinc-300">
+                  <div><span class="text-zinc-500">Disparador:</span> {automation.disparador}</div>
+                  <div><span class="text-zinc-500">Audiencia:</span> {automation.audiencia}</div>
+                  <div><span class="text-zinc-500">Próximos envíos:</span> {automation.proximosEnvios}</div>
+                </div>
+                <p class="mt-3 text-sm leading-6 text-zinc-300">{automation.impacto}</p>
+              </article>
+            ))}
           </div>
         </section>
       </aside>
@@ -178,7 +196,7 @@ const statusStyles = {
       <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 class="text-xl font-semibold text-zinc-50">Clientes y reactivación</h2>
-          <p class="mt-1 text-sm text-zinc-400">Base demo para mostrar seguimiento comercial, cumpleaños y acciones sugeridas.</p>
+          <p class="mt-1 text-sm text-zinc-400">18 clientes demo con últimas visitas, cumpleaños y contexto comercial para campañas útiles.</p>
         </div>
         <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">CRM liviano</div>
       </div>
@@ -191,18 +209,18 @@ const statusStyles = {
               <th class="px-4 py-3 font-medium">Teléfono</th>
               <th class="px-4 py-3 font-medium">Última visita</th>
               <th class="px-4 py-3 font-medium">Cumpleaños</th>
-              <th class="px-4 py-3 font-medium">Estado de reactivación</th>
+              <th class="px-4 py-3 font-medium">Estado sugerido</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-white/5">
-            {clients.map((client) => (
+            {demoClients.map((client) => (
               <tr class="transition hover:bg-white/[0.03]">
-                <td class="px-4 py-3 font-medium text-zinc-100">{client.name}</td>
-                <td class="px-4 py-3 text-zinc-300">{client.phone}</td>
-                <td class="px-4 py-3 text-zinc-300">{client.lastVisit}</td>
-                <td class="px-4 py-3 text-zinc-300">{client.birthday}</td>
+                <td class="px-4 py-3 font-medium text-zinc-100">{client.nombre}</td>
+                <td class="px-4 py-3 text-zinc-300">{client.telefono}</td>
+                <td class="px-4 py-3 text-zinc-300">{fmtDate(client.ultimaVisita, { day: "2-digit", month: "short", year: "numeric" })}</td>
+                <td class="px-4 py-3 text-zinc-300">{fmtDate(client.birthday, { day: "2-digit", month: "short" })}</td>
                 <td class="px-4 py-3">
-                  <span class="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200">{client.reactivation}</span>
+                  <span class="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200">{reactivationLabel(client.ultimaVisita)}</span>
                 </td>
               </tr>
             ))}
