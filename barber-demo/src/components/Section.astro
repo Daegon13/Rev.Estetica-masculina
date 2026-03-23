@@ -1,10 +1,10 @@
 ---
-const { title, subtitle } = Astro.props;
+const { title, subtitle, ...attrs } = Astro.props;
 ---
-<section class="py-10">
-  <div class="flex flex-col gap-2 mb-6">
-    <h2 class="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-50">{title}</h2>
-    {subtitle && <p class="text-sm text-zinc-400 max-w-2xl">{subtitle}</p>}
+<section class="py-10" {...attrs}>
+  <div class="mb-6 flex flex-col gap-2">
+    <h2 class="text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">{title}</h2>
+    {subtitle && <p class="max-w-2xl text-sm text-zinc-400">{subtitle}</p>}
   </div>
   <slot />
 </section>

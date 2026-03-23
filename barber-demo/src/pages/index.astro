@@ -26,21 +26,6 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
 <BaseLayout title={title} description={description}>
   <Hero />
 
-  <section class="mt-6 grid gap-3 sm:grid-cols-3">
-    <div class="rounded-2xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-4">
-      <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Enfoque</div>
-      <div class="mt-1 text-sm font-semibold text-zinc-100">Imagen personal integral</div>
-    </div>
-    <div class="rounded-2xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-4">
-      <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Reserva</div>
-      <div class="mt-1 text-sm font-semibold text-zinc-100">Online y por WhatsApp</div>
-    </div>
-    <div class="rounded-2xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-4">
-      <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Experiencia</div>
-      <div class="mt-1 text-sm font-semibold text-zinc-100">Profesional, puntual y sobria</div>
-    </div>
-  </section>
-
   <Section
     title="Servicios destacados"
     subtitle="Sesiones diseñadas para mantener una presencia cuidada, con duración estimada y reserva inmediata."
@@ -53,14 +38,15 @@ const description = `Cuidado masculino integral, reserva online y experiencia pr
   </Section>
 
   <Section
-    title="Una experiencia pensada para tu rutina"
-    subtitle="Más que una barbería tradicional: un estudio de estética masculina enfocado en resultado, comodidad y consistencia."
+    id="como-funciona"
+    title="Cómo funciona el sistema de agenda"
+    subtitle="Una experiencia premium para reservar online, confirmar por WhatsApp y sostener una relación más inteligente con cada cliente."
   >
     <div class="grid gap-4 md:grid-cols-3">
       {[
-        { t: "Diagnóstico y criterio", d: "Cada servicio parte de una mirada profesional sobre tu estilo, agenda e imagen cotidiana." },
-        { t: "Reserva sin fricción", d: "Elegís servicio, horario y confirmás en segundos desde el celular." },
-        { t: "Resultado sobrio", d: "Terminaciones limpias, estética moderna y una atención alineada con un estándar premium." }
+        { t: "Turnos online", d: "El cliente elige servicio y horario en una interfaz simple, rápida y alineada con una marca de imagen masculina contemporánea." },
+        { t: "Confirmación por WhatsApp", d: "Cada reserva baja la fricción operativa con mensajes claros para confirmar asistencia y mantener el contacto." },
+        { t: "Recordatorio y fidelización", d: "Los recordatorios automáticos ayudan a reducir ausencias y dejan una base lista para impulsar recurrencia." }
       ].map((x) => (
         <div class="rounded-2xl border border-stone-200/10 bg-gradient-to-b from-white/8 to-white/[0.03] p-5">
           <div class="font-semibold text-zinc-100">{x.t}</div>
