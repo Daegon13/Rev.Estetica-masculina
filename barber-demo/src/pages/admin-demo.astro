@@ -1,235 +1,233 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import MessageTemplatesDemo from "@components/MessageTemplatesDemo.astro";
-import { DEMO_TODAY, DEMO_TODAY_LABEL } from "@config/demo";
 import {
-  demoAppointments,
-  demoAutomations,
-  demoClients,
-  demoDashboardAppointments,
-  inactiveClients,
-  upcomingBirthdays
+  adminAgendaTimeline,
+  adminCampaignFeed,
+  adminDemoHighlights,
+  adminDemoMetrics,
+  adminDemoSummaryCards,
+  clientListRows
 } from "@data/demoBusiness";
 
-const title = "Admin Demo — Panel comercial";
-const description = "Panel demo para mostrar agenda, clientes y automatizaciones del sistema a dueños de negocios de estética masculina.";
-const todayLabel = DEMO_TODAY_LABEL;
-
-const countByStatus = (status: (typeof demoAppointments)[number]["estado"]) =>
-  demoAppointments.filter((appointment) => appointment.estado === status).length;
-
-const summaryCards = [
-  {
-    label: "Turnos cargados hoy",
-    value: String(demoAppointments.length),
-    trend: `${countByStatus("confirmado")} confirmados · ${countByStatus("pendiente")} pendientes`,
-    detail: `${countByStatus("completado")} completados · ${countByStatus("cancelado")} cancelado para recuperar`,
-    tone: "from-emerald-400/20 via-emerald-300/8 to-transparent"
-  },
-  {
-    label: "Clientes en la base demo",
-    value: String(demoClients.length),
-    trend: `${upcomingBirthdays.length} cumpleaños próximos`,
-    detail: `${inactiveClients.length} sin visita hace más de 30 días`,
-    tone: "from-sky-400/20 via-sky-300/8 to-transparent"
-  },
-  {
-    label: "Automatizaciones listas",
-    value: String(demoAutomations.length),
-    trend: `${demoAutomations.filter((automation) => automation.estado === "activa").length} activas ahora`,
-    detail: `${demoAutomations.reduce((total, automation) => total + automation.proximosEnvios, 0)} envíos proyectados`,
-    tone: "from-amber-300/20 via-amber-200/8 to-transparent"
-  },
-  {
-    label: "Oportunidad comercial",
-    value: `UYU ${inactiveClients.reduce((total, client) => total + client.ticketPromedio, 0).toLocaleString("es-UY")}`,
-    trend: "Win-back + cumpleaños esta semana",
-    detail: "El demo conecta agenda, CRM y mensajería con casos reales de venta.",
-    tone: "from-fuchsia-400/20 via-fuchsia-300/8 to-transparent"
-  }
-];
+const title = "Admin Demo — Dashboard para dueños";
+const description = "Dashboard demo para mostrar agenda, clientes, campañas y valor comercial del sistema para un local de estética masculina.";
 
 const statusStyles = {
-  confirmado: "bg-emerald-400/15 text-emerald-200 border-emerald-300/20",
-  pendiente: "bg-amber-400/15 text-amber-100 border-amber-300/20",
-  completado: "bg-sky-400/15 text-sky-200 border-sky-300/20",
-  cancelado: "bg-rose-400/15 text-rose-200 border-rose-300/20"
+  confirmado: "border-emerald-300/20 bg-emerald-400/10 text-emerald-200",
+  pendiente: "border-amber-300/20 bg-amber-400/10 text-amber-100",
+  completado: "border-sky-300/20 bg-sky-400/10 text-sky-200",
+  cancelado: "border-rose-300/20 bg-rose-400/10 text-rose-200"
 } as const;
 
 const statusLabel = {
   confirmado: "Confirmado",
   pendiente: "Pendiente",
-  completado: "Completado",
+  completado: "Atendido",
   cancelado: "Cancelado"
 } as const;
 
-const reactivationLabel = (lastVisit: string) => {
-  const today = new Date(`${DEMO_TODAY}T00:00:00Z`).getTime();
-  const visit = new Date(`${lastVisit}T00:00:00Z`).getTime();
-  const days = Math.floor((today - visit) / (1000 * 60 * 60 * 24));
-
-  if (days > 30) return `Dormido ${days} días · activar win-back`;
-  if (days <= 7) return "Activo reciente · pedir reseña";
-  return "Seguimiento liviano · recordar próxima visita";
-};
-
-const fmtDate = (date: string, options: Intl.DateTimeFormatOptions) =>
-  new Intl.DateTimeFormat("es-UY", { timeZone: "UTC", ...options }).format(new Date(`${date}T00:00:00Z`));
+const segmentStyles = {
+  Activo: "border-emerald-300/20 bg-emerald-400/10 text-emerald-200",
+  "Cumple pronto": "border-sky-300/20 bg-sky-400/10 text-sky-200",
+  "En riesgo": "border-amber-300/20 bg-amber-400/10 text-amber-100",
+  "Win-back": "border-fuchsia-300/20 bg-fuchsia-400/10 text-fuchsia-200"
+} as const;
 ---
 
 <BaseLayout title={title} description={description}>
   <section class="space-y-8">
-    <div class="overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/[0.04] to-white/[0.02] p-6 shadow-soft sm:p-8">
-      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <div class="max-w-3xl">
-          <div class="inline-flex items-center gap-2 rounded-full border border-[#c8a27c]/25 bg-[#c8a27c]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-[#e8cfb6]">
-            Demo comercial
-          </div>
-          <h1 class="mt-4 text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
-            Panel demo con narrativa comercial, agenda visible y datos consistentes para vender operación, orden y recurrencia sin exponer datos reales.
+    <section class="overflow-hidden rounded-[2rem] border border-[#c8a27c]/18 bg-[radial-gradient(circle_at_top_left,rgba(200,162,124,0.24),transparent_34%),linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03),rgba(0,0,0,0.18))] p-6 shadow-soft sm:p-8 lg:p-10">
+      <div class="grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
+        <div>
+          <div class="pill-badge">Admin demo · listo para vender</div>
+          <h1 class="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl lg:text-5xl">
+            Un dashboard que le muestra al dueño del local qué pasa hoy, qué clientes mover y dónde está la facturación potencial.
           </h1>
-          <p class="mt-4 max-w-2xl text-sm leading-6 text-zinc-400 sm:text-base">
-            La demo de Rev. Estética Masculina aterriza servicios, profesionales, clientes y automatizaciones en un negocio local de Montevideo para que el lead vea una operación plausible, ordenada y lista para escalar comercialmente.
+          <p class="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">
+            Esta demo convierte la promesa comercial en una interfaz realista: agenda viva, clientes segmentados, recordatorios programados y campañas listas para accionar sin depender de Excel ni seguimiento manual.
           </p>
+
+          <div class="mt-6 flex flex-wrap gap-3 text-sm text-zinc-200">
+            <div class="rounded-2xl border border-white/10 bg-black/25 px-4 py-3">Agenda del día visible para todo el equipo</div>
+            <div class="rounded-2xl border border-white/10 bg-black/25 px-4 py-3">CRM liviano con siguiente acción sugerida</div>
+            <div class="rounded-2xl border border-white/10 bg-black/25 px-4 py-3">Campañas y recordatorios como parte del producto</div>
+          </div>
         </div>
 
-        <div class="grid gap-3 rounded-3xl border border-white/10 bg-black/20 p-4 text-sm text-zinc-300 sm:min-w-[320px]">
+        <div class="panel p-5 sm:p-6">
           <div class="flex items-center justify-between gap-4">
-            <span>Ocupación estimada de hoy</span>
-            <strong class="text-zinc-50">83%</strong>
+            <div>
+              <div class="text-xs uppercase tracking-[0.22em] text-[#e7c7a3]">Resumen del día</div>
+              <div class="mt-2 text-2xl font-semibold text-zinc-50">{adminDemoMetrics.todayLabel}</div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-right">
+              <div class="text-xs uppercase tracking-[0.18em] text-zinc-500">Ocupación</div>
+              <div class="mt-1 text-2xl font-semibold text-zinc-50">{adminDemoMetrics.occupancyRate}%</div>
+            </div>
           </div>
-          <div class="flex items-center justify-between gap-4">
-            <span>Próximos cumpleaños</span>
-            <strong class="text-zinc-50">{upcomingBirthdays.length}</strong>
-          </div>
-          <div class="flex items-center justify-between gap-4">
-            <span>Clientes a reactivar</span>
-            <strong class="text-zinc-50">{inactiveClients.length}</strong>
+
+          <div class="mt-5 grid gap-3 sm:grid-cols-3">
+            {adminDemoHighlights.map((item) => (
+              <article class="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <div class="text-xs uppercase tracking-[0.18em] text-zinc-500">{item.label}</div>
+                <div class="mt-2 text-2xl font-semibold text-zinc-50">{item.value}</div>
+                <p class="mt-2 text-sm text-zinc-400">{item.note}</p>
+              </article>
+            ))}
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-      {summaryCards.map((card) => (
-        <article class={`overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br ${card.tone} p-5 shadow-soft`}>
-          <div class="text-sm text-zinc-400">{card.label}</div>
-          <div class="mt-3 flex items-end justify-between gap-4">
-            <strong class="text-3xl font-semibold text-zinc-50 sm:text-4xl">{card.value}</strong>
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-200">{card.trend}</span>
+    <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      {adminDemoSummaryCards.map((card) => (
+        <article class={`overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-br ${card.accent} p-5 shadow-soft`}>
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="text-sm text-zinc-400">{card.label}</div>
+              <div class="mt-3 text-3xl font-semibold text-zinc-50 sm:text-4xl">{card.value}</div>
+            </div>
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-black/20 text-[#ecd2b4]">
+              {card.icon === "calendar" && <span class="text-xl">✦</span>}
+              {card.icon === "users" && <span class="text-xl">◉</span>}
+              {card.icon === "bell" && <span class="text-xl">◎</span>}
+              {card.icon === "spark" && <span class="text-xl">✳</span>}
+            </div>
           </div>
-          <p class="mt-4 text-sm text-zinc-300">{card.detail}</p>
+          <p class="mt-4 text-sm font-medium text-zinc-200">{card.supporting}</p>
+          <p class="mt-2 text-sm leading-6 text-zinc-400">{card.detail}</p>
         </article>
       ))}
-    </div>
+    </section>
 
-    <div class="grid gap-6 xl:grid-cols-[1.35fr_.65fr]">
-      <section class="rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-soft sm:p-6">
+    <section class="grid gap-6 xl:grid-cols-[1.35fr_.65fr]">
+      <div class="panel p-5 sm:p-6">
         <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 class="text-xl font-semibold text-zinc-50">Agenda comercial del día</h2>
-            <p class="mt-1 text-sm text-zinc-400">12 citas demo con estados variados para mostrar seguimiento real de agenda y atención.</p>
+            <h2 class="text-xl font-semibold text-zinc-50">Agenda del día</h2>
+            <p class="mt-1 text-sm text-zinc-400">Vista operativa con estado, ticket esperado y contexto rápido para atender mejor y ordenar la jornada.</p>
           </div>
-          <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">{todayLabel}</div>
+          <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Operación diaria</div>
         </div>
 
-        <div class="mt-5 overflow-hidden rounded-2xl border border-white/10">
-          <div class="overflow-x-auto">
-          <table class="min-w-[760px] w-full divide-y divide-white/10 text-left text-sm">
-            <thead class="bg-white/5 text-zinc-400">
-              <tr>
-                <th class="px-4 py-3 font-medium">Hora</th>
-                <th class="px-4 py-3 font-medium">Cliente</th>
-                <th class="px-4 py-3 font-medium">Servicio</th>
-                <th class="px-4 py-3 font-medium">Profesional</th>
-                <th class="px-4 py-3 font-medium">Estado</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-white/5">
-              {demoDashboardAppointments.map((item) => (
-                <tr class="bg-transparent transition hover:bg-white/[0.03]">
-                  <td class="px-4 py-3 font-medium text-zinc-100">{item.hora}</td>
-                  <td class="px-4 py-3 text-zinc-200">{item.cliente?.nombre}</td>
-                  <td class="px-4 py-3 text-zinc-300">{item.servicio?.nombre}</td>
-                  <td class="px-4 py-3 text-zinc-300">{item.profesional?.nombre}</td>
-                  <td class="px-4 py-3">
-                    <span class={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${statusStyles[item.estado]}`}>
-                      {statusLabel[item.estado]}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          </div>
+        <div class="mt-5 space-y-3">
+          {adminAgendaTimeline.map((item) => (
+            <article class="rounded-[1.4rem] border border-white/10 bg-black/20 p-4 transition hover:border-[#c8a27c]/25 hover:bg-black/30">
+              <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div class="flex items-start gap-4">
+                  <div class="rounded-2xl border border-[#c8a27c]/20 bg-[#c8a27c]/10 px-3 py-2 text-sm font-semibold text-[#f2d3b0]">{item.hora}</div>
+                  <div>
+                    <div class="flex flex-wrap items-center gap-2">
+                      <h3 class="text-base font-semibold text-zinc-50">{item.cliente}</h3>
+                      <span class={`inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${statusStyles[item.estado]}`}>{statusLabel[item.estado]}</span>
+                      <span class="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-300">{item.canal}</span>
+                    </div>
+                    <p class="mt-2 text-sm text-zinc-300">{item.servicio} con {item.profesional}</p>
+                    <p class="mt-2 max-w-2xl text-sm leading-6 text-zinc-400">{item.nota}</p>
+                  </div>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-right lg:min-w-[140px]">
+                  <div class="text-xs uppercase tracking-[0.18em] text-zinc-500">Ticket</div>
+                  <div class="mt-1 text-xl font-semibold text-zinc-50">UYU {item.ticket.toLocaleString("es-UY")}</div>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
-      </section>
+      </div>
 
       <aside class="space-y-6">
-        <MessageTemplatesDemo />
+        <section class="panel p-5 sm:p-6">
+          <div class="flex items-end justify-between gap-3">
+            <div>
+              <h2 class="text-lg font-semibold text-zinc-50">Campañas activas</h2>
+              <p class="mt-1 text-sm text-zinc-400">Automatizaciones que demuestran recurrencia, recuperación y reputación.</p>
+            </div>
+            <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Marketing</div>
+          </div>
 
-        <section class="rounded-3xl border border-white/10 bg-gradient-to-br from-[#c8a27c]/14 via-white/[0.03] to-white/[0.02] p-5 shadow-soft sm:p-6">
-          <div class="text-sm text-zinc-300">Automatizaciones recomendadas</div>
-          <div class="mt-3 space-y-3">
-            {demoAutomations.map((automation) => (
-              <article class="rounded-2xl border border-white/10 bg-black/20 p-4">
+          <div class="mt-5 space-y-3">
+            {adminCampaignFeed.map((campaign) => (
+              <article class="rounded-[1.4rem] border border-white/10 bg-black/20 p-4">
                 <div class="flex items-start justify-between gap-3">
                   <div>
-                    <h3 class="font-semibold text-zinc-50">{automation.nombre}</h3>
-                    <p class="mt-1 text-sm text-zinc-400">{automation.objetivo}</p>
+                    <h3 class="font-semibold text-zinc-50">{campaign.nombre}</h3>
+                    <p class="mt-1 text-sm text-zinc-400">{campaign.objetivo}</p>
                   </div>
-                  <span class={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${automation.estado === "activa" ? "border-emerald-300/20 bg-emerald-400/10 text-emerald-200" : "border-amber-300/20 bg-amber-400/10 text-amber-100"}`}>
-                    {automation.estado}
+                  <span class={`inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${campaign.estado === "activa" ? "border-emerald-300/20 bg-emerald-400/10 text-emerald-200" : "border-amber-300/20 bg-amber-400/10 text-amber-100"}`}>
+                    {campaign.estado}
                   </span>
                 </div>
-                <div class="mt-3 grid gap-2 text-sm text-zinc-300">
-                  <div><span class="text-zinc-500">Disparador:</span> {automation.disparador}</div>
-                  <div><span class="text-zinc-500">Audiencia:</span> {automation.audiencia}</div>
-                  <div><span class="text-zinc-500">Próximos envíos:</span> {automation.proximosEnvios}</div>
-                </div>
-                <p class="mt-3 text-sm leading-6 text-zinc-300">{automation.impacto}</p>
+
+                <dl class="mt-4 grid gap-3 text-sm text-zinc-300">
+                  <div>
+                    <dt class="text-zinc-500">Disparador</dt>
+                    <dd class="mt-1">{campaign.disparador}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-zinc-500">Audiencia</dt>
+                    <dd class="mt-1">{campaign.audiencia}</dd>
+                  </div>
+                  <div class="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
+                    <span class="text-zinc-400">Próximos envíos</span>
+                    <strong class="text-zinc-50">{campaign.proximosEnvios}</strong>
+                  </div>
+                </dl>
+
+                <p class="mt-4 text-sm leading-6 text-zinc-300">{campaign.impacto}</p>
               </article>
             ))}
           </div>
         </section>
       </aside>
-    </div>
+    </section>
 
-    <section class="rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-soft sm:p-6">
+    <section class="panel p-5 sm:p-6">
       <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 class="text-xl font-semibold text-zinc-50">Clientes, historial y reactivación</h2>
-          <p class="mt-1 text-sm text-zinc-400">18 clientes demo con últimas visitas, cumpleaños y contexto comercial para campañas útiles.</p>
+          <h2 class="text-xl font-semibold text-zinc-50">Clientes</h2>
+          <p class="mt-1 text-sm text-zinc-400">Base mock reusable con valor del cliente, preferencia operativa y siguiente acción comercial sugerida.</p>
         </div>
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">CRM liviano</div>
+        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">CRM demo</div>
       </div>
 
-      <div class="mt-5 overflow-hidden rounded-2xl border border-white/10">
+      <div class="mt-5 overflow-hidden rounded-[1.5rem] border border-white/10">
         <div class="overflow-x-auto">
-          <table class="min-w-[760px] w-full divide-y divide-white/10 text-left text-sm">
-          <thead class="bg-white/5 text-zinc-400">
-            <tr>
-              <th class="px-4 py-3 font-medium">Nombre</th>
-              <th class="px-4 py-3 font-medium">Teléfono</th>
-              <th class="px-4 py-3 font-medium">Última visita</th>
-              <th class="px-4 py-3 font-medium">Cumpleaños</th>
-              <th class="px-4 py-3 font-medium">Estado sugerido</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-white/5">
-            {demoClients.map((client) => (
-              <tr class="transition hover:bg-white/[0.03]">
-                <td class="px-4 py-3 font-medium text-zinc-100">{client.nombre}</td>
-                <td class="px-4 py-3 text-zinc-300">{client.telefono}</td>
-                <td class="px-4 py-3 text-zinc-300">{fmtDate(client.ultimaVisita, { day: "2-digit", month: "short", year: "numeric" })}</td>
-                <td class="px-4 py-3 text-zinc-300">{fmtDate(client.birthday, { day: "2-digit", month: "short" })}</td>
-                <td class="px-4 py-3">
-                  <span class="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-200">{reactivationLabel(client.ultimaVisita)}</span>
-                </td>
+          <table class="min-w-[980px] w-full divide-y divide-white/10 text-left text-sm">
+            <thead class="bg-white/5 text-zinc-400">
+              <tr>
+                <th class="px-4 py-3 font-medium">Cliente</th>
+                <th class="px-4 py-3 font-medium">Última visita</th>
+                <th class="px-4 py-3 font-medium">Servicio habitual</th>
+                <th class="px-4 py-3 font-medium">Valor</th>
+                <th class="px-4 py-3 font-medium">Segmento</th>
+                <th class="px-4 py-3 font-medium">Siguiente acción</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+              {clientListRows.map((client) => (
+                <tr class="transition hover:bg-white/[0.03]">
+                  <td class="px-4 py-4 align-top">
+                    <div class="font-semibold text-zinc-100">{client.nombre}</div>
+                    <div class="mt-1 text-zinc-400">{client.telefono} · {client.barrio}</div>
+                    <div class="mt-2 text-xs text-zinc-500">Prefiere a {client.profesional}</div>
+                  </td>
+                  <td class="px-4 py-4 align-top text-zinc-300">{client.ultimaVisita}</td>
+                  <td class="px-4 py-4 align-top text-zinc-300">{client.servicioHabitual}</td>
+                  <td class="px-4 py-4 align-top font-medium text-zinc-100">{client.valor}</td>
+                  <td class="px-4 py-4 align-top">
+                    <span class={`inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${segmentStyles[client.segmento as keyof typeof segmentStyles]}`}>
+                      {client.segmento}
+                    </span>
+                  </td>
+                  <td class="px-4 py-4 align-top">
+                    <div class="text-zinc-200">{client.siguienteAccion}</div>
+                    <div class="mt-2 text-xs leading-5 text-zinc-500">{client.notas}</div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
