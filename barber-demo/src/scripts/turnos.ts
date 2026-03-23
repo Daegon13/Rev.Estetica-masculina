@@ -28,6 +28,8 @@ type BookingState = {
   confirmed: boolean;
 };
 
+const STORAGE_KEY = "rev-estetica-booking-demo";
+
 const steps = [
   { id: "service", label: "Servicio", helper: "Elegí experiencia" },
   { id: "professional", label: "Profesional", helper: "Quién te atiende" },
@@ -105,6 +107,9 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
   const backBtn = $("#bookingBack") as HTMLButtonElement;
   const resetBtn = $("#bookingReset") as HTMLButtonElement;
   const errorBox = $("#bookingError");
+  const progressText = $("#bookingProgressText");
+  const progressBar = $("#bookingProgressBar");
+  const selectionPills = $("#bookingSelectionPills");
 
   const initialService = services.find(
     (service) => service.nombre.toLowerCase() === preselected || service.id.toLowerCase() === preselected
@@ -121,6 +126,23 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
   };
 
   let currentStep = initialService ? 1 : 0;
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ state, currentStep }));
+  }
+
+  function restoreState() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+
+    try {
+      const parsed = JSON.parse(raw) as { state?: Partial<BookingState>; currentStep?: number };
+      Object.assign(state, parsed.state ?? {});
+      currentStep = typeof parsed.currentStep === "number" ? Math.min(Math.max(parsed.currentStep, 0), steps.length - 1) : currentStep;
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }
 
   function getSelectedService() {
     return services.find((service) => service.id === state.serviceId);
@@ -160,6 +182,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
       errorBox.classList.add("hidden");
       return;
     }
+
     errorBox.innerHTML = messages.map((message) => `<div>${message}</div>`).join("");
     errorBox.classList.remove("hidden");
   }
@@ -194,6 +217,21 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
     }
   }
 
+  function goToStep(stepIndex: number) {
+    currentStep = Math.min(Math.max(stepIndex, 0), steps.length - 1);
+    state.confirmed = false;
+    showError([]);
+    render();
+  }
+
+  function advanceIfNeeded(targetStep: number) {
+    if (currentStep < targetStep) {
+      currentStep = targetStep;
+      showError([]);
+      render();
+    }
+  }
+
   function renderStepper() {
     stepper.innerHTML = steps
       .map((step, index) => {
@@ -213,7 +251,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                 <div class="mt-1 text-sm font-semibold text-white">${step.label}</div>
                 <div class="mt-1 text-xs text-zinc-400">${step.helper}</div>
               </div>
-              <div class="h-9 w-9 rounded-full border ${done ? "border-emerald-400/30 bg-emerald-500/10 text-emerald-200" : active ? "border-[#c8a27c]/40 bg-[#c8a27c]/12 text-white" : "border-white/10 bg-black/20 text-zinc-400"} flex items-center justify-center text-xs font-semibold">
+              <div class="flex h-9 w-9 items-center justify-center rounded-full border text-xs font-semibold ${done ? "border-emerald-400/30 bg-emerald-500/10 text-emerald-200" : active ? "border-[#c8a27c]/40 bg-[#c8a27c]/12 text-white" : "border-white/10 bg-black/20 text-zinc-400"}">
                 ${done ? "✓" : index + 1}
               </div>
             </div>
@@ -226,10 +264,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
       button.addEventListener("click", () => {
         const target = Number(button.dataset.step);
         if (target <= currentStep) {
-          currentStep = target;
-          state.confirmed = false;
-          showError([]);
-          render();
+          goToStep(target);
         }
       });
     });
@@ -241,6 +276,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
     const availableProfessionals = getAvailableProfessionals();
     const dates = getAvailableDates();
     const times = getAvailableTimes();
+    const detailErrors = currentStep === 4 ? validateDetails(state.name, state.phone) : [];
 
     panels.innerHTML = steps
       .map((step, index) => {
@@ -254,7 +290,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                     <div class="text-xs uppercase tracking-[0.24em] text-zinc-500">Paso 1</div>
                     <h3 class="mt-2 text-xl font-semibold text-white">Seleccioná un servicio</h3>
                   </div>
-                  <div class="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-zinc-400">Mock fácil de reemplazar</div>
+                  <div class="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-zinc-400">Autoadvance activado</div>
                 </div>
                 <div class="grid gap-3 lg:grid-cols-2">${services
                   .map(
@@ -371,18 +407,21 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                 <div class="mb-4">
                   <div class="text-xs uppercase tracking-[0.24em] text-zinc-500">Paso 5</div>
                   <h3 class="mt-2 text-xl font-semibold text-white">Completá tus datos</h3>
-                  <p class="mt-2 text-sm text-zinc-400">Validación básica del lado cliente, lista para migrar después a una capa serverless o Supabase.</p>
+                  <p class="mt-2 text-sm text-zinc-400">Validación básica del lado cliente, persistencia local y estructura lista para migrar después a Supabase o una capa serverless.</p>
                 </div>
                 <div class="grid gap-4 md:grid-cols-2">
                   <label class="space-y-2 rounded-[24px] border border-white/10 bg-black/20 p-4">
                     <span class="text-xs uppercase tracking-[0.2em] text-zinc-500">Nombre</span>
                     <input id="bookingName" value="${state.name}" placeholder="Ej: Martín Pérez" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-[#c8a27c]/45 focus:outline-none" />
+                    <span class="text-xs text-zinc-500">Usamos validación simple para demo y futura integración.</span>
                   </label>
                   <label class="space-y-2 rounded-[24px] border border-white/10 bg-black/20 p-4">
                     <span class="text-xs uppercase tracking-[0.2em] text-zinc-500">Teléfono</span>
                     <input id="bookingPhone" value="${state.phone}" placeholder="Ej: 099 123 456" inputmode="tel" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-[#c8a27c]/45 focus:outline-none" />
+                    <span class="text-xs text-zinc-500">Formato libre; normalizamos el input para el CTA final.</span>
                   </label>
                 </div>
+                ${detailErrors.length ? `<div class="mt-4 rounded-2xl border border-amber-400/25 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">${detailErrors.join("<br />")}</div>` : ""}
               </section>
             `;
           case "confirm":
@@ -392,7 +431,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                   <div>
                     <div class="text-xs uppercase tracking-[0.24em] text-[#e2c3a4]">Paso 6</div>
                     <h3 class="mt-2 text-2xl font-semibold text-white">Confirmá el turno</h3>
-                    <p class="mt-2 max-w-2xl text-sm leading-6 text-zinc-200">Pantalla final pensada para demo comercial: resume la reserva y ofrece un CTA claro para continuar por WhatsApp.</p>
+                    <p class="mt-2 max-w-2xl text-sm leading-6 text-zinc-200">Pantalla final pensada para demo comercial: resume la reserva, da sensación de estado persistido y ofrece un CTA claro para continuar por WhatsApp.</p>
                   </div>
                   <div class="rounded-2xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">${state.confirmed ? "Turno demo confirmado" : "Listo para confirmar"}</div>
                 </div>
@@ -413,8 +452,13 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
                     )
                     .join("")}
                 </div>
+                <div class="mt-5 rounded-2xl border border-white/10 bg-black/20 p-4">
+                  <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Mensaje listo para enviar</div>
+                  <pre class="mt-3 whitespace-pre-wrap text-sm leading-6 text-zinc-200">${buildMessage(brand, service, selectedProfessional, state)}</pre>
+                </div>
                 <div class="mt-5 flex flex-col gap-3 sm:flex-row">
                   <button type="button" id="confirmBooking" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/10 px-5 text-sm font-semibold text-white transition hover:bg-white/15">Confirmar turno</button>
+                  <button type="button" id="editBooking" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/10 bg-transparent px-5 text-sm font-semibold text-zinc-200 transition hover:bg-white/10">Editar datos</button>
                   <a id="bookingWhatsApp" href="${encodeWA(phone, buildMessage(brand, service, selectedProfessional, state))}" target="_blank" rel="noreferrer" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#c8a27c]/40 bg-[#c8a27c]/18 px-5 text-sm font-semibold text-white transition hover:bg-[#c8a27c]/28">Enviar / continuar por WhatsApp</a>
                 </div>
               </section>
@@ -432,8 +476,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
         state.dateIso = "";
         state.time = "";
         ensureCompatibility();
-        showError([]);
-        render();
+        advanceIfNeeded(1);
       });
     });
 
@@ -441,8 +484,7 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
       button.addEventListener("click", () => {
         state.professionalId = button.dataset.professional ?? "";
         state.time = "";
-        showError([]);
-        render();
+        advanceIfNeeded(2);
       });
     });
 
@@ -450,16 +492,14 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
       button.addEventListener("click", () => {
         state.dateIso = button.dataset.date ?? "";
         state.time = "";
-        showError([]);
-        render();
+        advanceIfNeeded(3);
       });
     });
 
     panels.querySelectorAll<HTMLButtonElement>("[data-time]").forEach((button) => {
       button.addEventListener("click", () => {
         state.time = button.dataset.time ?? "";
-        showError([]);
-        render();
+        advanceIfNeeded(4);
       });
     });
 
@@ -468,12 +508,17 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
     if (nameInput) {
       nameInput.addEventListener("input", () => {
         state.name = nameInput.value;
+        saveState();
+        renderSummary();
       });
     }
+
     if (phoneInput) {
       phoneInput.addEventListener("input", () => {
         phoneInput.value = sanitizePhone(phoneInput.value);
         state.phone = phoneInput.value;
+        saveState();
+        renderSummary();
       });
     }
 
@@ -492,6 +537,11 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
         showError([]);
         render();
       });
+    }
+
+    const editButton = panels.querySelector<HTMLButtonElement>("#editBooking");
+    if (editButton) {
+      editButton.addEventListener("click", () => goToStep(4));
     }
   }
 
@@ -525,6 +575,28 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
     `;
   }
 
+  function renderProgress() {
+    const percent = `${((currentStep + 1) / steps.length) * 100}%`;
+    progressText.textContent = state.confirmed ? "Reserva demo confirmada" : `Paso ${currentStep + 1} de ${steps.length}`;
+    progressBar.style.width = percent;
+
+    const pills = [
+      getSelectedService()?.nombre,
+      getSelectedProfessional()?.nombre,
+      state.dateIso ? formatDateLong(state.dateIso) : "",
+      state.time,
+      state.name
+    ].filter(Boolean) as string[];
+
+    selectionPills.innerHTML = pills.length
+      ? pills
+          .map(
+            (item) => `<span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-zinc-200">${item}</span>`
+          )
+          .join("")
+      : '<span class="rounded-full border border-dashed border-white/10 px-3 py-1.5 text-xs text-zinc-500">Todavía no hay selección</span>';
+  }
+
   function renderControls() {
     backBtn.disabled = currentStep === 0;
     nextBtn.textContent = currentStep === steps.length - 1 ? (state.confirmed ? "Demo confirmada" : "Validar resumen") : "Continuar";
@@ -533,9 +605,11 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
 
   function render() {
     ensureCompatibility();
+    saveState();
     renderStepper();
     renderPanels();
     renderSummary();
+    renderProgress();
     renderControls();
   }
 
@@ -584,9 +658,12 @@ function buildMessage(brand: string, service: Servicio | undefined, professional
     state.phone = "";
     state.confirmed = false;
     currentStep = initialService ? 1 : 0;
+    localStorage.removeItem(STORAGE_KEY);
     showError([]);
     render();
   });
 
+  restoreState();
+  ensureCompatibility();
   render();
 })();
