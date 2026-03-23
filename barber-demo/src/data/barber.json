@@ -18,77 +18,117 @@
     "og": "/images/og-cover.png"
   },
   "galeria": [
-    { "id": "01", "before": "/images/gallery/01-before.png", "after": "/images/gallery/01-after.png" },
-    { "id": "02", "before": "/images/gallery/02-before.png", "after": "/images/gallery/02-after.png" },
-    { "id": "03", "before": "/images/gallery/03-before.png", "after": "/images/gallery/03-after.png" },
-    { "id": "04", "before": "/images/gallery/04-before.png", "after": "/images/gallery/04-after.png" },
-    { "id": "05", "before": "/images/gallery/05-before.png", "after": "/images/gallery/05-after.png" },
-    { "id": "06", "before": "/images/gallery/06-before.png", "after": "/images/gallery/06-after.png" }
+    {
+      "id": "01",
+      "before": "/images/gallery/01-before.png",
+      "after": "/images/gallery/01-after.png"
+    },
+    {
+      "id": "02",
+      "before": "/images/gallery/02-before.png",
+      "after": "/images/gallery/02-after.png"
+    },
+    {
+      "id": "03",
+      "before": "/images/gallery/03-before.png",
+      "after": "/images/gallery/03-after.png"
+    },
+    {
+      "id": "04",
+      "before": "/images/gallery/04-before.png",
+      "after": "/images/gallery/04-after.png"
+    },
+    {
+      "id": "05",
+      "before": "/images/gallery/05-before.png",
+      "after": "/images/gallery/05-after.png"
+    },
+    {
+      "id": "06",
+      "before": "/images/gallery/06-before.png",
+      "after": "/images/gallery/06-after.png"
+    }
   ],
   "servicios": [
     {
-      "id": "corte",
-      "nombre": "Corte de imagen",
-      "precio": 650,
-      "duracion": 40,
-      "descripcion": "Diagnóstico breve, corte actual, contornos precisos y terminación limpia para una imagen profesional.",
+      "id": "corte-masculino",
+      "nombre": "Corte masculino premium",
+      "precio": 690,
+      "duracion": 45,
+      "descripcion": "Corte personalizado con asesoría de estilo, contornos prolijos y terminación pensada para una imagen masculina actual.",
       "popular": true,
       "imagen": "/images/services/corte-fade.png",
-      "alt": "Detalle de corte masculino premium con terminación prolija."
+      "alt": "Corte masculino premium con terminación precisa."
     },
     {
-      "id": "barba",
-      "nombre": "Diseño de barba",
-      "precio": 550,
+      "id": "barba-y-perfilado",
+      "nombre": "Barba y perfilado",
+      "precio": 590,
       "duracion": 35,
-      "descripcion": "Perfilado, rebaje y definición con foco en equilibrio facial y presencia cotidiana.",
+      "descripcion": "Diseño, rebaje y definición de barba para ordenar el rostro y reforzar una presencia cuidada en el día a día.",
       "popular": true,
       "imagen": "/images/services/barba-toalla.png",
-      "alt": "Perfilado de barba con estética masculina premium."
+      "alt": "Servicio de barba y perfilado con acabado prolijo."
     },
     {
-      "id": "combo",
-      "nombre": "Experiencia integral",
-      "precio": 1100,
+      "id": "corte-barba",
+      "nombre": "Corte + barba",
+      "precio": 1180,
       "duracion": 75,
-      "descripcion": "Corte + barba en una sesión pensada para salir impecable, cómodo y listo para tu agenda.",
+      "descripcion": "Sesión integral para renovar cabello y barba en una misma visita, con resultado equilibrado y acabado premium.",
       "popular": true,
       "imagen": "/images/services/combo-corte-barba.png",
-      "alt": "Sesión integral de cuidado masculino en estudio premium."
+      "alt": "Experiencia integral de corte y barba en estudio masculino."
     },
     {
-      "id": "perfilado",
-      "nombre": "Mantenimiento express",
-      "precio": 450,
-      "duracion": 20,
-      "descripcion": "Repaso de contornos, laterales y terminaciones para mantener una imagen cuidada entre visitas.",
-      "popular": false,
-      "imagen": "/images/services/perfilado-contorno.png",
-      "alt": "Contornos y mantenimiento estético masculino con terminación precisa."
-    },
-    {
-      "id": "afeitado",
-      "nombre": "Afeitado premium",
-      "precio": 700,
+      "id": "afeitado-premium",
+      "nombre": "Afeitado premium con toalla caliente",
+      "precio": 790,
       "duracion": 45,
-      "descripcion": "Ritual de afeitado confortable con preparación de piel y acabado sobrio de alto detalle.",
+      "descripcion": "Ritual clásico con preparación de piel, toalla caliente y acabado suave para clientes que quieren verse impecables sin irritación.",
       "popular": false,
       "imagen": "/images/services/afeitado-premium.png",
-      "alt": "Afeitado masculino premium con herramientas profesionales y luz suave."
+      "alt": "Afeitado premium masculino con toalla caliente y acabado prolijo."
+    },
+    {
+      "id": "limpieza-facial-masculina",
+      "nombre": "Limpieza facial masculina",
+      "precio": 930,
+      "duracion": 50,
+      "descripcion": "Limpieza profunda y descongestiva pensada para hombres que quieren recuperar la piel después de la semana o antes de un evento.",
+      "popular": false,
+      "imagen": "/images/services/afeitado-premium.png",
+      "alt": "Limpieza facial masculina en cabina premium."
+    },
+    {
+      "id": "servicio-express",
+      "nombre": "Mantenimiento express",
+      "precio": 520,
+      "duracion": 25,
+      "descripcion": "Repaso rápido de laterales, nuca o barba para sostener una imagen prolija entre servicios completos.",
+      "popular": false,
+      "imagen": "/images/services/perfilado-contorno.png",
+      "alt": "Servicio express de mantenimiento estético masculino."
     }
   ],
   "barberos": [
     {
-      "nombre": "Nico",
-      "especialidad": "Imagen personal / Corte editorial",
+      "nombre": "Nicolás Correa",
+      "especialidad": "Skin fade, crop texturizado y refresh ejecutivo",
       "foto": "/images/barbers/barbero-01-editorial.png",
-      "alt": "Especialista en imagen masculina con enfoque editorial."
+      "alt": "Nicolás Correa, especialista en cortes modernos masculinos."
     },
     {
-      "nombre": "Santi",
-      "especialidad": "Barba / Definición y mantenimiento",
+      "nombre": "Santiago Pereira",
+      "especialidad": "Diseño de barba, toalla caliente y perfilado premium",
       "foto": "/images/barbers/barbero-02-anonimo.png",
-      "alt": "Profesional de estética masculina especializado en barba y detalles."
+      "alt": "Santiago Pereira, barbero enfocado en barba y terminaciones premium."
+    },
+    {
+      "nombre": "Matías Suárez",
+      "especialidad": "Cuidado facial masculino, cejas y packs pre-evento",
+      "foto": "/images/barbers/barbero-02-anonimo.png",
+      "alt": "Matías Suárez, profesional de estética masculina y tratamientos faciales."
     }
   ],
   "branding": {
@@ -96,8 +136,20 @@
     "logoWordmark": ""
   },
   "testimonios": [
-    { "nombre": "Martín", "texto": "Encontré un espacio serio, prolijo y con una atención que mejora mi imagen en cada visita.", "rating": 5 },
-    { "nombre": "Gonzalo", "texto": "Reservé online en minutos y el servicio fue puntual, profesional y muy cuidado.", "rating": 5 },
-    { "nombre": "Fede", "texto": "La experiencia se siente premium sin perder cercanía. Ideal para mantener una presencia impecable.", "rating": 5 }
+    {
+      "nombre": "Martín",
+      "texto": "Encontré un espacio serio, prolijo y con una atención que mejora mi imagen en cada visita.",
+      "rating": 5
+    },
+    {
+      "nombre": "Gonzalo",
+      "texto": "Reservé online en minutos y el servicio fue puntual, profesional y muy cuidado.",
+      "rating": 5
+    },
+    {
+      "nombre": "Fede",
+      "texto": "La experiencia se siente premium sin perder cercanía. Ideal para mantener una presencia impecable.",
+      "rating": 5
+    }
   ]
 }

@@ -35,34 +35,34 @@ export const demoServices: Servicio[] = [
     alt: "Experiencia integral de corte y barba en estudio masculino."
   },
   {
-    id: "limpieza-facial-masculina",
-    nombre: "Limpieza facial masculina",
-    precio: 890,
-    duracion: 50,
+    id: "afeitado-premium",
+    nombre: "Afeitado premium con toalla caliente",
+    precio: 790,
+    duracion: 45,
     descripcion:
-      "Rutina de higiene profunda y recuperación de piel para lucir un rostro fresco, prolijo y listo para la semana.",
+      "Ritual clásico con preparación de piel, toalla caliente y acabado suave para clientes que quieren verse impecables sin irritación.",
     popular: false,
     imagen: "/images/services/afeitado-premium.png",
-    alt: "Limpieza facial masculina en ambiente premium."
+    alt: "Afeitado premium masculino con toalla caliente y acabado prolijo."
   },
   {
-    id: "perfilado-de-cejas",
-    nombre: "Perfilado de cejas",
-    precio: 390,
-    duracion: 20,
+    id: "limpieza-facial-masculina",
+    nombre: "Limpieza facial masculina",
+    precio: 930,
+    duracion: 50,
     descripcion:
-      "Definición sutil y masculina para ordenar la mirada sin perder naturalidad ni expresión.",
+      "Limpieza profunda y descongestiva pensada para hombres que quieren recuperar la piel después de la semana o antes de un evento.",
     popular: false,
-    imagen: "/images/services/perfilado-contorno.png",
-    alt: "Perfilado de cejas masculino con resultado natural."
+    imagen: "/images/services/afeitado-premium.png",
+    alt: "Limpieza facial masculina en cabina premium."
   },
   {
     id: "servicio-express",
-    nombre: "Servicio express",
-    precio: 490,
+    nombre: "Mantenimiento express",
+    precio: 520,
     duracion: 25,
     descripcion:
-      "Ajuste rápido de contornos y detalles clave para mantener tu imagen prolija entre servicios completos.",
+      "Repaso rápido de laterales, nuca o barba para sostener una imagen prolija entre servicios completos.",
     popular: false,
     imagen: "/images/services/perfilado-contorno.png",
     alt: "Servicio express de mantenimiento estético masculino."
