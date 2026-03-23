@@ -3,75 +3,91 @@ import barber from "@data/barber.json";
 
 const { nombre, ciudad, media } = barber;
 
-type Props = {
-  title?: string;
-  subtitle?: string;
-};
-
-const {
-  title = "Cuidado masculino integral con una estética premium y contemporánea.",
-  subtitle = `Un estudio de imagen masculina en ${ciudad} para reservar online, optimizar tu presencia y vivir una experiencia profesional de principio a fin.`
-} = Astro.props as Props;
+const trustBullets = [
+  "Confirmaciones automáticas",
+  "Menos ausencias",
+  "Más clientes que vuelven"
+];
 ---
 
-<section class="relative overflow-hidden rounded-3xl border border-stone-300/10 bg-white/5 shadow-soft">
-  <picture class="absolute inset-0 -z-10">
+<section class="relative overflow-hidden rounded-[2rem] border border-stone-300/10 bg-[#111315] shadow-soft">
+  <picture class="absolute inset-0 -z-20">
     <source media="(max-width: 768px)" srcset={media.heroMobile} />
     <img
       src={media.heroDesktop}
       alt=""
-      class="h-full w-full object-cover"
+      class="h-full w-full object-cover object-center"
       loading="eager"
       fetchpriority="high"
       decoding="async"
     />
   </picture>
 
-  <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-r from-[#0f1113]/92 via-[#171a1d]/78 to-[#0f1113]/70"></div>
+  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(200,162,124,0.16),transparent_32%),linear-gradient(100deg,rgba(15,17,19,0.96)_0%,rgba(17,19,21,0.88)_48%,rgba(15,17,19,0.72)_100%)]"></div>
 
   <div
     aria-hidden="true"
-    class="absolute inset-0 pointer-events-none mix-blend-soft-light opacity-30"
+    class="absolute inset-0 pointer-events-none mix-blend-soft-light opacity-20"
     style={`background-image:url(${media.overlayTexture}); background-size: 512px 512px;`}
   ></div>
 
-  <div class="relative px-6 py-14 sm:px-10 sm:py-20">
+  <div class="relative grid gap-10 px-6 py-14 sm:px-10 sm:py-20 lg:grid-cols-[minmax(0,1.2fr)_320px] lg:items-end lg:px-14 lg:py-24">
     <div class="max-w-2xl">
-      <div class="inline-flex items-center gap-2 rounded-full border border-stone-200/10 bg-black/25 px-3 py-1 text-xs uppercase tracking-[0.24em] text-stone-200/80">
+      <div class="inline-flex items-center gap-2 rounded-full border border-stone-200/10 bg-black/25 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-stone-200/80">
         <span class="h-2 w-2 rounded-full bg-[#c8a27c]"></span>
-        {nombre} · Reserva online y WhatsApp
+        {nombre} · Estética masculina moderna
       </div>
 
-      <h1 class="mt-5 text-3xl font-semibold tracking-tight text-zinc-50 sm:text-5xl">
-        {title}
+      <h1 class="mt-6 max-w-3xl text-4xl font-semibold leading-tight tracking-[-0.03em] text-zinc-50 sm:text-5xl lg:text-6xl">
+        Tu imagen impecable empieza con una reserva online sin fricción.
       </h1>
 
-      <p class="mt-4 max-w-xl text-sm leading-relaxed text-stone-200/80 sm:text-base">
-        {subtitle}
+      <p class="mt-5 max-w-xl text-sm leading-7 text-stone-200/78 sm:text-base">
+        En {ciudad}, combinás turnos online, confirmaciones por WhatsApp, recordatorios automáticos y fidelización de clientes en una experiencia premium pensada para estética masculina actual.
       </p>
 
-      <div class="mt-7 flex flex-col gap-2 sm:flex-row">
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
         <a
           href="/turnos"
-          class="rounded-2xl border border-[#c8a27c]/35 bg-[#c8a27c]/14 px-5 py-4 text-center text-sm font-semibold text-stone-100 transition hover:bg-[#c8a27c]/22"
+          class="rounded-2xl border border-[#c8a27c]/35 bg-[#c8a27c]/16 px-6 py-4 text-center text-sm font-semibold text-stone-100 transition hover:bg-[#c8a27c]/24"
         >
-          Reservar experiencia
+          Reservar turno
         </a>
 
         <a
-          href="/servicios"
-          class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/10"
+          href="#como-funciona"
+          class="rounded-2xl border border-white/12 bg-white/[0.04] px-6 py-4 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/[0.08]"
         >
-          Ver servicios
-        </a>
-
-        <a
-          href="/ubicacion"
-          class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/10"
-        >
-          Cómo llegar
+          Ver cómo funciona
         </a>
       </div>
+    </div>
+
+    <div class="rounded-[1.75rem] border border-white/10 bg-black/20 p-5 backdrop-blur-sm">
+      <div class="text-xs uppercase tracking-[0.22em] text-zinc-500">Sistema de agenda</div>
+      <div class="mt-3 text-2xl font-semibold tracking-tight text-zinc-50">Más orden, menos mensajes sueltos.</div>
+      <div class="mt-4 space-y-4 text-sm text-stone-300/80">
+        <div class="border-l border-[#c8a27c]/35 pl-4">
+          El cliente reserva en segundos y recibe su confirmación directa por WhatsApp.
+        </div>
+        <div class="border-l border-white/10 pl-4">
+          Los recordatorios automáticos ayudan a reducir ausencias y sostener puntualidad.
+        </div>
+        <div class="border-l border-white/10 pl-4">
+          Cada visita se convierte en una oportunidad real de fidelización.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative border-t border-white/10 bg-black/18 px-6 py-5 sm:px-10 lg:px-14">
+    <div class="grid gap-3 sm:grid-cols-3">
+      {trustBullets.map((bullet) => (
+        <div class="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/[0.04] px-4 py-3">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#c8a27c]/30 bg-[#c8a27c]/12 text-[#e2c3a6]">•</span>
+          <span class="text-sm font-medium text-stone-100">{bullet}</span>
+        </div>
+      ))}
     </div>
   </div>
 </section>
